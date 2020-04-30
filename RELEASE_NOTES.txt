@@ -1,3 +1,6 @@
+==== 1.3.1 ====
+Added PHP 7.3 to composer require
+
 ==== 1.3.0 ====
 Reimplemented M2.3 combatibility
 Removed M2.0 M2.1 M2.2 compatibility
