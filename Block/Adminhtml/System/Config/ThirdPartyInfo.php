@@ -51,23 +51,26 @@ class ThirdPartyInfo extends \Magento\Config\Block\System\Config\Form\Fieldset
         $html = $this->_getHeaderHtml($element);
         $dummyField = $element->getElements()[0];
 
-        $thirdPartyMethods = explode(',', $this->_scopeConfig->getValue('payment/iways_paypalplus_payment/third_party_moduls'));
+        $configPath = 'payment/iways_paypalplus_payment/third_party_modul';
+        $thirdPartyMethods = explode(',', $this->_scopeConfig->getValue($configPath . 's'));
         foreach ($this->paymentConfig->getActiveMethods() as $paymentMethod) {
             if (in_array($paymentMethod->getCode(), $thirdPartyMethods)) {
                 $thirdPartyMethod = $paymentMethod->getCode();
+                $configPathText = 'payment/iways_paypalplus_section/third_party_modul_info/text_'
+                		        . $thirdPartyMethod;
+                $methodText = $this->_scopeConfig->getValue($configPathText) ?: $paymentMethod->getTitle();
                 $field = clone $dummyField;
                 $field->setData('name', str_replace('dummy', $thirdPartyMethod, $field->getName()));
                 $field->setData('label', $paymentMethod->getTitle());
-                $field->setData('value', $this->_scopeConfig->getValue('payment/iways_paypalplus_section/third_party_modul_info/text_' . $thirdPartyMethod));
+                $field->setData('value', $methodText);
                 $fieldConfig = $field->getData('field_config');
                 $fieldConfig['id'] = 'text_' . $thirdPartyMethod;
                 $fieldConfig['label'] = $paymentMethod->getTitle();
-                $fieldConfig['config_path'] =
-                    'payment/iways_paypalplus_section/third_party_modul_info/text_' . $thirdPartyMethod;
-
+                $fieldConfig['config_path'] = $configPathText;
                 $field->setData('field_config', $fieldConfig);
                 $field->setData('html_id', str_replace('dummy', $thirdPartyMethod, $field->getData('html_id')));
                 $html .= $field->toHtml();
+                var_dump($thirdPartyMethod, $configPathText);
             }
         }
         $html .= $this->_getFooterHtml($element);

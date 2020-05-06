@@ -17,7 +17,6 @@ use Iways\PayPalPlus\Model\Payment;
 
 /**
  * Class Info
- * @package Iways\PayPalPlus\Block\Payment
  */
 class PaymentInfo extends \Magento\Payment\Block\Info
 {

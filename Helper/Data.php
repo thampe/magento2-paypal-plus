@@ -18,8 +18,11 @@ use Magento\Framework\App\Cache\TypeListInterface;
 use Magento\Framework\View\LayoutFactory;
 
 /**
- * Class Data
- * @package Iways\PayPalPlus\Helper
+ * Iways\PayPalPlus\Helper\Data
+ *
+ * @author  Robert Hillebrand <hillebrand@i-ways.net>
+ * @license http://opensource.org/licenses/osl-3.0.php Open Software License 3.0
+ * @link    https://www.i-ways.net
  */
 class Data extends \Magento\Payment\Helper\Data
 {
@@ -96,7 +99,14 @@ class Data extends \Magento\Payment\Helper\Data
         \Magento\Framework\App\ProductMetadata $productMetaData,
         TypeListInterface $cacheTypeList
     ) {
-        parent::__construct($context, $layoutFactory, $paymentMethodFactory, $appEmulation, $paymentConfig, $initialConfig);
+        parent::__construct(
+            $context,
+            $layoutFactory,
+            $paymentMethodFactory,
+            $appEmulation,
+            $paymentConfig,
+            $initialConfig
+        );
         $this->generic = $generic;
         $this->request = $request;
         $this->storeManager = $storeManager;
@@ -114,7 +124,10 @@ class Data extends \Magento\Payment\Helper\Data
      */
     public function handleException(\Exception $e)
     {
-        if ($this->scopeConfig->getValue('iways_paypalplus/dev/debug', \Magento\Store\Model\ScopeInterface::SCOPE_STORE)) {
+        if ($this->scopeConfig->getValue(
+            'iways_paypalplus/dev/debug',
+            \Magento\Store\Model\ScopeInterface::SCOPE_STORE
+        )) {
             $this->messageManager->addWarning($e->getData());
         }
     }
@@ -147,7 +160,7 @@ class Data extends \Magento\Payment\Helper\Data
      * @param bool|true $formKey
      * @return string
      */
-    public function getUrl($url, $params = array(), $formKey = true)
+    public function getUrl($url, $params = [], $formKey = true)
     {
         $isSecure = $this->request->isSecure();
         if ($isSecure) {
@@ -168,7 +181,10 @@ class Data extends \Magento\Payment\Helper\Data
      */
     public function getDefaultCountryId()
     {
-        return $this->scopeConfig->getValue('payment/account/merchant_country', \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
+        return $this->scopeConfig->getValue(
+            'payment/account/merchant_country',
+            \Magento\Store\Model\ScopeInterface::SCOPE_STORE
+        );
     }
 
     /**
@@ -220,7 +236,10 @@ class Data extends \Magento\Payment\Helper\Data
      */
     public function getPaymentExperience()
     {
-        if ($this->scopeConfig->getValue('payment/iways_paypalplus_payment/active', \Magento\Store\Model\ScopeInterface::SCOPE_STORE)) {
+        if ($this->scopeConfig->getValue(
+            'payment/iways_paypalplus_payment/active',
+            \Magento\Store\Model\ScopeInterface::SCOPE_STORE
+        )) {
             return $this->payPalPlusApiFactory->create()->getPaymentExperience();
         }
         return false;
