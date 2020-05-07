@@ -73,17 +73,18 @@ define(
                 var self = this;
                 quote.billingAddress.subscribe(function (newAddress) {
                     try {
-                        if(self.canInitialise() && self.isInitialized && newAddress !== null && newAddress.countryId != self.country) {
+                        if (self.canInitialise() && self.isInitialized && newAddress !== null && newAddress.countryId != self.country) {
                             self.country = newAddress.countryId;
                             self.isInitialized = false;
                             self.initPayPalPlusFrame();
                         }
-                    }catch (e) {console.log(e)}
-
+                    } catch (e) {
+                        console.log(e);
+                    }
                 }, this);
                 self.selectPaymentMethod();
                 self.isPPPMethod = ko.computed(function () {
-                    if(quote.paymentMethod() && (
+                    if (quote.paymentMethod() && (
                             quote.paymentMethod().method == 'iways_paypalplus_payment'
                             || typeof self.thirdPartyPaymentMethods[quote.paymentMethod().method] !== "undefined"
                         )
@@ -110,7 +111,7 @@ define(
                         language: self.language,
                         preselection: "paypal",
                         thirdPartyPaymentMethods: self.getThirdPartyPaymentMethods(),
-                        onLoad: function() {
+                        onLoad: function () {
                             self.lastCall = 'enableContinue';
                         },
                         onThirdPartyPaymentMethodSelected: function (data) {
@@ -183,12 +184,12 @@ define(
                     return this.placeOrder(data, event);
                 }
             },
-            getCountry: function() {
+            getCountry: function () {
                 try {
-                    if(quote.billingAddress().countryId) {
+                    if (quote.billingAddress().countryId) {
                         return quote.billingAddress().countryId;
                     }
-                }catch(e) {
+                } catch (e) {
                     //console.log(e);
                 }
                 return this.country;

@@ -23,8 +23,6 @@ use Magento\Sales\Model\OrderFactory;
 /**
  * PayPalPlus checkout controller
  *
- * @category   Iways
- * @package    Iways_PayPalPlus
  * @author robert
  */
 class Create extends \Magento\Framework\App\Action\Action
@@ -126,8 +124,7 @@ class Create extends \Magento\Framework\App\Action\Action
 
             if ($orderId) {
                 $order = $this->orderFactory->create()->load($orderId);
-                if (
-                    $order->getCanSendNewEmailFlag()
+                if ($order->getCanSendNewEmailFlag()
                     && version_compare($this->productMetadata->getVersion(), self::MAX_SEND_MAIL_VERSION, '<')
                 ) {
                     try {
@@ -156,6 +153,7 @@ class Create extends \Magento\Framework\App\Action\Action
                         }
                     }
                 } catch (\Exception $e) {
+                    $this->logger->log($e);
                 }
             }
             $result->setData('success', true);

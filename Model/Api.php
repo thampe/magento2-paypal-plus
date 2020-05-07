@@ -42,8 +42,6 @@ use PayPal\Exception\PayPalConnectionException;
 /**
  * Iways PayPal Rest Api wrapper
  *
- * @category   Iways
- * @package    Iways_PayPalPlus
  * @author robert
  */
 class Api
@@ -198,12 +196,24 @@ class Api
     {
         $this->_apiContext = new ApiContext(
             new OAuthTokenCredential(
-                $this->scopeConfig->getValue('iways_paypalplus/api/client_id', \Magento\Store\Model\ScopeInterface::SCOPE_STORE, $website),
-                $this->scopeConfig->getValue('iways_paypalplus/api/client_secret', \Magento\Store\Model\ScopeInterface::SCOPE_STORE, $website)
+                $this->scopeConfig->getValue(
+                    'iways_paypalplus/api/client_id',
+                    \Magento\Store\Model\ScopeInterface::SCOPE_STORE,
+                    $website
+                ),
+                $this->scopeConfig->getValue(
+                    'iways_paypalplus/api/client_secret',
+                    \Magento\Store\Model\ScopeInterface::SCOPE_STORE,
+                    $website
+                )
             )
         );
 
-        $this->_mode = $this->scopeConfig->getValue('iways_paypalplus/api/mode', \Magento\Store\Model\ScopeInterface::SCOPE_STORE, $website);
+        $this->_mode = $this->scopeConfig->getValue(
+            'iways_paypalplus/api/mode',
+            \Magento\Store\Model\ScopeInterface::SCOPE_STORE,
+            $website
+        );
 
         $this->_apiContext->setConfig(
             [
@@ -215,7 +225,11 @@ class Api
                     $website
                 ),
                 'mode' => $this->_mode,
-                'log.LogEnabled' => $this->scopeConfig->getValue('iways_paypalplus/dev/debug', \Magento\Store\Model\ScopeInterface::SCOPE_STORE, $website),
+                'log.LogEnabled' => $this->scopeConfig->getValue(
+                    'iways_paypalplus/dev/debug',
+                    \Magento\Store\Model\ScopeInterface::SCOPE_STORE,
+                    $website
+                ),
                 'log.FileName' => $this->directoryList->getPath(DirectoryList::LOG) . '/PayPal.log',
                 'log.LogLevel' => 'INFO'
             ]
@@ -285,10 +299,15 @@ class Api
         $transaction->setItemList($itemList);
 
         $redirectUrls = new RedirectUrls();
-        $redirectUrls->setReturnUrl($this->urlBuilder->getUrl('paypalplus/order/create'))->setCancelUrl($this->urlBuilder->getUrl('paypalplus/checkout/cancel'));
+        $redirectUrls->setReturnUrl($this->urlBuilder->getUrl('paypalplus/order/create'))
+                     ->setCancelUrl($this->urlBuilder->getUrl('paypalplus/checkout/cancel'));
 
         $payment = new PayPalPayment();
-        $payment->setIntent("sale")->setExperienceProfileId($webProfile->getId())->setPayer($payer)->setRedirectUrls($redirectUrls)->setTransactions([$transaction]);
+        $payment->setIntent("sale")
+                ->setExperienceProfileId($webProfile->getId())
+                ->setPayer($payer)
+                ->setRedirectUrls($redirectUrls)
+                ->setTransactions([$transaction]);
 
         try {
             $response = $payment->create($this->_apiContext);
@@ -355,8 +374,7 @@ class Api
                 return $response;
             } catch (\PayPal\Exception\PayPalConnectionException $ex) {
                 $message = json_decode($ex->getData());
-                if (
-                    isset($message->name)
+                if (isset($message->name)
                     && isset($message->details)
                     && $message->name == self::VALIDATION_ERROR
                 ) {
@@ -373,7 +391,7 @@ class Api
                                 );
                         }
                     }
-                    throw new \Exception($validationMessage);
+                    $this->logger->critica($validationMessage); // throw new \Exception($validationMessage);
                 }
             }
         }
@@ -745,7 +763,9 @@ class Api
     protected function buildAmount($quote)
     {
         $details = new Details();
-        $shippingCost = $quote->getShippingAddress()->getFreeShipping() ? 0 : $quote->getShippingAddress()->getBaseShippingAmount();
+        $shippingCost = $quote->getShippingAddress()->getFreeShipping()
+                      ? 0
+                      : $quote->getShippingAddress()->getBaseShippingAmount();
 
         $details->setShipping($shippingCost)
             ->setTax(
@@ -779,7 +799,8 @@ class Api
         }
 
         $total = $quote->getBaseGrandTotal();
-        if ((float)$quote->getShippingAddress()->getBaseShippingAmount() == 0 && (float)$quote->getShippingAddress()->getBaseShippingInclTax() >= 0) {
+        if ((float)$quote->getShippingAddress()->getBaseShippingAmount() == 0
+            && (float)$quote->getShippingAddress()->getBaseShippingInclTax() >= 0) {
             $total = (float)$total - (float)$quote->getShippingAddress()->getBaseShippingInclTax();
         }
 
@@ -799,9 +820,14 @@ class Api
     protected function buildWebProfile()
     {
         $webProfile = new WebProfile();
-        if ($this->scopeConfig->getValue('iways_paypalplus/dev/web_profile_id', \Magento\Store\Model\ScopeInterface::SCOPE_STORE)
-        ) {
-            $webProfile->setId($this->scopeConfig->getValue('iways_paypalplus/dev/web_profile_id', \Magento\Store\Model\ScopeInterface::SCOPE_STORE));
+        if ($this->scopeConfig->getValue(
+            'iways_paypalplus/dev/web_profile_id',
+            \Magento\Store\Model\ScopeInterface::SCOPE_STORE
+        )) {
+            $webProfile->setId($this->scopeConfig->getValue(
+                'iways_paypalplus/dev/web_profile_id',
+                \Magento\Store\Model\ScopeInterface::SCOPE_STORE
+            ));
             return $webProfile;
         }
         try {
@@ -845,9 +871,14 @@ class Api
      */
     protected function getHeaderImage()
     {
-        if ($this->scopeConfig->getValue('iways_paypalplus/api/hdrimg', \Magento\Store\Model\ScopeInterface::SCOPE_WEBSITE)
-        ) {
-            return $this->scopeConfig->getValue('iways_paypalplus/api/hdrimg', \Magento\Store\Model\ScopeInterface::SCOPE_WEBSITE);
+        if ($this->scopeConfig->getValue(
+            'iways_paypalplus/api/hdrimg',
+            \Magento\Store\Model\ScopeInterface::SCOPE_WEBSITE
+        )) {
+            return $this->scopeConfig->getValue(
+                'iways_paypalplus/api/hdrimg',
+                \Magento\Store\Model\ScopeInterface::SCOPE_WEBSITE
+            );
         }
         $folderName = \Magento\Config\Model\Config\Backend\Image\Logo::UPLOAD_DIR;
         $storeLogoPath = $this->scopeConfig->getValue(

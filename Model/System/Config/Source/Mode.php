@@ -12,11 +12,10 @@
  * License http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
 namespace Iways\PayPalPlus\Model\System\Config\Source;
+
 /**
  * PayPal Api Mode resource class
  *
- * @category   Iways
- * @package    Iways_PayPalPlus
  * @author robert
  */
 class Mode implements \Magento\Framework\Option\ArrayInterface

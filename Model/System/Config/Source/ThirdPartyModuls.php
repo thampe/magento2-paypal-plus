@@ -18,8 +18,6 @@ use Magento\Framework\App\Config\ScopeConfigInterface;
 /**
  * PayPal Api Mode resource class
  *
- * @category   Iways
- * @package    Iways_PayPalPlus
  * @author robert
  */
 class ThirdPartyModuls implements \Magento\Framework\Option\ArrayInterface

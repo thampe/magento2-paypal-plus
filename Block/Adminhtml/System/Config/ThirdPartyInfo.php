@@ -20,9 +20,6 @@ namespace Iways\PayPalPlus\Block\Adminhtml\System\Config;
 
 class ThirdPartyInfo extends \Magento\Config\Block\System\Config\Form\Fieldset
 {
-    protected $_dummyElement;
-    protected $_fieldRenderer;
-    protected $_values;
     /**
      * @var \Magento\Payment\Model\Config
      */
@@ -57,7 +54,7 @@ class ThirdPartyInfo extends \Magento\Config\Block\System\Config\Form\Fieldset
             if (in_array($paymentMethod->getCode(), $thirdPartyMethods)) {
                 $thirdPartyMethod = $paymentMethod->getCode();
                 $configPathText = 'payment/iways_paypalplus_section/third_party_modul_info/text_'
-                		        . $thirdPartyMethod;
+                                . $thirdPartyMethod;
                 $methodText = $this->_scopeConfig->getValue($configPathText) ?: $paymentMethod->getTitle();
                 $field = clone $dummyField;
                 $field->setData('name', str_replace('dummy', $thirdPartyMethod, $field->getName()));

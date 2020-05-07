@@ -14,12 +14,12 @@
 
 namespace Iways\PayPalPlus\Model\PaymentInformationManagement;
 
+use Iways\PayPalPlus\Api\PPPPaymentInformationManagementInterface as ClassInterface;
 use Iways\PayPalPlus\Model\PaymentInformationManagement;
 use Magento\Framework\Exception\CouldNotSaveException;
 
-class PPPPaymentInformationManagement extends PaymentInformationManagement implements \Iways\PayPalPlus\Api\PPPPaymentInformationManagementInterface
+class PPPPaymentInformationManagement extends PaymentInformationManagement implements ClassInterface
 {
-
     /**
      * @var \Magento\Quote\Api\BillingAddressManagementInterface
      */
@@ -35,12 +35,10 @@ class PPPPaymentInformationManagement extends PaymentInformationManagement imple
      */
     protected $cartManagement;
 
-
     /**
      * @var PaymentDetailsFactory
      */
     protected $paymentDetailsFactory;
-
 
     /**
      * @var \Magento\Quote\Api\CartTotalRepositoryInterface

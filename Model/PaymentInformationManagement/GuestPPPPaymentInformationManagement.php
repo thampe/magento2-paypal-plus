@@ -14,13 +14,13 @@
 
 namespace Iways\PayPalPlus\Model\PaymentInformationManagement;
 
+use Iways\PayPalPlus\Api\GuestPPPPaymentInformationManagementInterface as ClassInterface;
 use Iways\PayPalPlus\Model\PaymentInformationManagement;
 use Magento\Framework\Exception\CouldNotSaveException;
 use Magento\Quote\Api\CartRepositoryInterface;
 
-class GuestPPPPaymentInformationManagement extends PaymentInformationManagement implements \Iways\PayPalPlus\Api\GuestPPPPaymentInformationManagementInterface
+class GuestPPPPaymentInformationManagement extends PaymentInformationManagement implements ClassInterface
 {
-
     /**
      * @var \Magento\Quote\Api\GuestBillingAddressManagementInterface
      */
@@ -71,8 +71,6 @@ class GuestPPPPaymentInformationManagement extends PaymentInformationManagement 
         \Magento\Quote\Api\GuestCartManagementInterface $cartManagement,
         \Magento\Checkout\Api\PaymentInformationManagementInterface $paymentInformationManagement,
         \Magento\Quote\Model\QuoteIdMaskFactory $quoteIdMaskFactory
-
-
     ) {
         $this->billingAddressManagement = $billingAddressManagement;
         $this->paymentMethodManagement = $paymentMethodManagement;

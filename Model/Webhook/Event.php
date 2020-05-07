@@ -1,5 +1,6 @@
 <?php
 namespace Iways\PayPalPlus\Model\Webhook;
+
 /**
  * NOTICE OF LICENSE
  *
@@ -16,8 +17,6 @@ namespace Iways\PayPalPlus\Model\Webhook;
 /**
  * Iways PayPalPlus Event Handler
  *
- * @category   Iways
- * @package    Iways_PayPalPlus
  * @author robert
  */
 class Event
@@ -62,10 +61,12 @@ class Event
 
     public function __construct(
         \Magento\Sales\Model\Order\Payment\TransactionFactory $salesOrderPaymentTransactionFactory,
-        \Magento\Sales\Model\OrderFactory $salesOrderFactory
+        \Magento\Sales\Model\OrderFactory $salesOrderFactory,
+        \Psr\Log\LoggerInterface $logger
     ) {
         $this->salesOrderPaymentTransactionFactory = $salesOrderPaymentTransactionFactory;
         $this->salesOrderFactory = $salesOrderFactory;
+        $this->logger = $logger;
     }
 
     /**
@@ -75,7 +76,8 @@ class Event
      */
     public function processWebhookRequest(\PayPal\Api\WebhookEvent $webhookEvent)
     {
-        if ($webhookEvent->getEventType() !== null && in_array($webhookEvent->getEventType(), $this->getSupportedWebhookEvents())
+        if ($webhookEvent->getEventType() !== null
+            && in_array($webhookEvent->getEventType(), $this->getSupportedWebhookEvents())
         ) {
             $this->getOrder($webhookEvent);
             $this->{$this->eventTypeToHandler($webhookEvent->getEventType())}($webhookEvent);
@@ -245,7 +247,8 @@ class Event
             // get proper order
             $resource = $webhookEvent->getResource();
             if (!$resource) {
-                throw new \Exception('Event resource not found.');
+                $this->logger->critica('Event resource not found.');
+                // throw new \Exception('Event resource not found.');
             }
 
             $transactionId = $resource->id;

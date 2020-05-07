@@ -14,7 +14,6 @@
 
 namespace Iways\PayPalPlus\Model;
 
-
 class MethodList extends \Magento\Payment\Model\MethodList
 {
     protected $checkPPP;

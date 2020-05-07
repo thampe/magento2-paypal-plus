@@ -30,15 +30,14 @@ define(
             try {
                 // IWD_Opc Order Comment Support
                 var orderCommentConfig = window.checkoutConfig.show_hide_custom_block;
-                if(orderCommentConfig) // true
-                {
+                if (orderCommentConfig) { // true
                     var order_comments = jQuery('[name="comment-code"]').val();
 
-                    if(typeof(paymentData.additional_data) === 'undefined'
+                    if (typeof(paymentData.additional_data) === 'undefined'
                         || paymentData.additional_data === null
-                    ){
+                    ) {
                         paymentData.additional_data = {comments:order_comments};
-                    }else{
+                    } else {
                         paymentData.additional_data.comments = order_comments;
                     }
                 }
@@ -71,7 +70,8 @@ define(
             fullScreenLoader.startLoader();
 
             return storage.post(
-                serviceUrl, JSON.stringify(payload)
+                serviceUrl,
+                JSON.stringify(payload)
             ).done(
                 function () {
                     ppp.doCheckout();

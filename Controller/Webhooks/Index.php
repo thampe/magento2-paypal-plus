@@ -42,7 +42,8 @@ class Index extends \Magento\Framework\App\Action\Action implements CsrfAwareAct
      * @param \Magento\Framework\App\RequestInterface $request
      * @return bool|null
      */
-    public function validateForCsrf(\Magento\Framework\App\RequestInterface $request): ?bool
+    public function validateForCsrf(\Magento\Framework\App\RequestInterface $request):
+    ?bool
     {
         return true;
     }
@@ -51,7 +52,8 @@ class Index extends \Magento\Framework\App\Action\Action implements CsrfAwareAct
      * @param \Magento\Framework\App\RequestInterface $request
      * @return InvalidRequestException|null
      */
-    public function createCsrfValidationException(\Magento\Framework\App\RequestInterface $request): ?InvalidRequestException
+    public function createCsrfValidationException(\Magento\Framework\App\RequestInterface $request):
+    ?InvalidRequestException
     {
         return null;
     }
@@ -66,11 +68,13 @@ class Index extends \Magento\Framework\App\Action\Action implements CsrfAwareAct
         \Magento\Framework\App\Action\Context $context,
         \Iways\PayPalPlus\Model\Webhook\EventFactory $webhookEventFactory,
         \Iways\PayPalPlus\Model\ApiFactory $apiFactory,
-        \Psr\Log\LoggerInterface $logger
+        \Psr\Log\LoggerInterface $logger,
+        \Magento\Framework\Filesystem\DriverInterface $driver
     ) {
         $this->_logger = $logger;
         $this->_webhookEventFactory = $webhookEventFactory;
         $this->_apiFactory = $apiFactory;
+        $this->_driver = $driver;
         parent::__construct($context);
     }
 
@@ -87,7 +91,7 @@ class Index extends \Magento\Framework\App\Action\Action implements CsrfAwareAct
         }
 
         try {
-            $data = file_get_contents('php://input');
+            $data = $this->driver->fileGetContents('php://input'); // file_get_contents('php://input');
             /** @var \PayPal\Api\WebhookEvent $webhookEvent */
             $webhookEvent = $this->_apiFactory->create()->validateWebhook($data);
             if (!$webhookEvent) {
@@ -98,7 +102,5 @@ class Index extends \Magento\Framework\App\Action\Action implements CsrfAwareAct
             $this->_logger->critical($e);
             $this->getResponse()->setStatusHeader(503, '1.1', 'Service Unavailable')->sendResponse();
         }
-
-        return;
     }
 }

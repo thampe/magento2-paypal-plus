@@ -17,23 +17,10 @@ namespace Iways\PayPalPlus\Controller\Checkout;
 /**
  * PayPalPlus checkout controller
  *
- * @category   Iways
- * @package    Iways_PayPalPlus
  * @author robert
  */
 class Cancel extends \Magento\Framework\App\Action\Action
 {
-    /**
-     * Cancel constructor.
-     *
-     * @param \Magento\Framework\App\Action\Context $context
-     */
-    public function __construct(
-        \Magento\Framework\App\Action\Context $context
-    ) {
-        parent::__construct($context);
-    }
-
     /**
      * Execute
      */

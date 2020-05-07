@@ -56,7 +56,6 @@ class ValidateObserver implements ObserverInterface
      */
     protected $messageManager;
 
-
     /**
      * ValidateObserver constructor.
      * @param \Magento\Backend\Helper\Data $backendData

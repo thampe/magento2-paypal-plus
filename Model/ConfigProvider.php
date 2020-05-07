@@ -108,15 +108,35 @@ class ConfigProvider implements ConfigProviderInterface
      */
     public function getConfig()
     {
+        $showPuiOnSandbox = $this->scopeConfig->getValue(
+            'iways_paypalplus/dev/pui_sandbox',
+            \Magento\Store\Model\ScopeInterface::SCOPE_STORE
+        ) ? true : false;
+
+        $showLoadingIndicator = $this->scopeConfig->getValue(
+            'payment/iways_paypalplus_payment/show_loading_indicator',
+            \Magento\Store\Model\ScopeInterface::SCOPE_STORE
+        ) ? true : false;
+
+        $mode = $this->scopeConfig->getValue(
+            'iways_paypalplus/api/mode',
+            \Magento\Store\Model\ScopeInterface::SCOPE_STORE
+        );
+
+        $language = $this->scopeConfig->getValue(
+            'general/locale/code',
+            \Magento\Store\Model\ScopeInterface::SCOPE_STORE
+        );
+
         return $this->method->isAvailable() ? [
             'payment' => [
                 'iways_paypalplus_payment' => [
                     'paymentExperience' => $this->payPalPlusHelper->getPaymentExperience(),
-                    'showPuiOnSandbox' => $this->scopeConfig->getValue('iways_paypalplus/dev/pui_sandbox', \Magento\Store\Model\ScopeInterface::SCOPE_STORE) ? true : false,
-                    'showLoadingIndicator' => $this->scopeConfig->getValue('payment/iways_paypalplus_payment/show_loading_indicator', \Magento\Store\Model\ScopeInterface::SCOPE_STORE) ? true : false,
-                    'mode' => $this->scopeConfig->getValue('iways_paypalplus/api/mode', \Magento\Store\Model\ScopeInterface::SCOPE_STORE),
+                    'showPuiOnSandbox' => $showPuiOnSandbox,
+                    'showLoadingIndicator' => $showLoadingIndicator,
+                    'mode' => $mode,
                     'country' => $this->getCountry(),
-                    'language' => $this->scopeConfig->getValue('general/locale/code', \Magento\Store\Model\ScopeInterface::SCOPE_STORE),
+                    'language' => $language,
                     'thirdPartyPaymentMethods' => $this->getThirdPartyMethods()
                 ],
             ],
@@ -135,7 +155,10 @@ class ConfigProvider implements ConfigProviderInterface
             return $shippingAddress->getCountryId();
         }
 
-        return $this->scopeConfig->getValue('paypal/general/merchant_country', \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
+        return $this->scopeConfig->getValue(
+            'paypal/general/merchant_country',
+            \Magento\Store\Model\ScopeInterface::SCOPE_STORE
+        );
     }
 
     protected function getThirdPartyMethods()
@@ -152,8 +175,7 @@ class ConfigProvider implements ConfigProviderInterface
         );
         $methods = [];
         foreach ($paymentMethods as $paymentMethod) {
-            if (
-                strpos($paymentMethod->getCode(), 'paypal') === false
+            if (strpos($paymentMethod->getCode(), 'paypal') === false
                 && in_array($paymentMethod->getCode(), $allowedPPPMethods)
             ) {
                 $method = [

@@ -16,9 +16,7 @@ namespace Iways\PayPalPlus\Model;
 use Magento\Framework\Exception\LocalizedException;
 
 /**
- * Class Payment
- *
- * @package Iways\PayPalPlus\Model
+ * Class Payment model
  */
 class Payment extends \Magento\Payment\Model\Method\AbstractMethod
 {
@@ -47,7 +45,7 @@ class Payment extends \Magento\Payment\Model\Method\AbstractMethod
     /**
      * @var string
      */
-    protected $_infoBlockType = 'Iways\PayPalPlus\Block\PaymentInfo';
+    protected $_infoBlockType = \Iways\PayPalPlus\Block\PaymentInfo::class;
 
     /**
      * @var \Magento\Framework\App\Request\Http
@@ -130,7 +128,18 @@ class Payment extends \Magento\Payment\Model\Method\AbstractMethod
         $this->customerSession = $customerSession;
         $this->payPalPlusHelper = $payPalPlusHelper;
         $this->salesOrderPaymentTransactionFactory = $salesOrderPaymentTransactionFactory;
-        parent::__construct($context, $registry, $extensionFactory, $customAttributeFactory, $paymentData, $scopeConfig, $logger, $resource, $resourceCollection, $data);
+        parent::__construct(
+            $context,
+            $registry,
+            $extensionFactory,
+            $customAttributeFactory,
+            $paymentData,
+            $scopeConfig,
+            $logger,
+            $resource,
+            $resourceCollection,
+            $data
+        );
         $this->ppLogger = $context->getLogger();
     }
 
@@ -150,8 +159,10 @@ class Payment extends \Magento\Payment\Model\Method\AbstractMethod
         $paymentId = $this->request->getParam('paymentId');
         $payerId = $this->request->getParam('PayerID');
         try {
-            if ($this->scopeConfig->getValue('payment/iways_paypalplus_payment/transfer_reserved_order_id', \Magento\Store\Model\ScopeInterface::SCOPE_STORE)
-            ) {
+            if ($this->scopeConfig->getValue(
+                'payment/iways_paypalplus_payment/transfer_reserved_order_id',
+                \Magento\Store\Model\ScopeInterface::SCOPE_STORE
+            )) {
                 $this->payPalPlusApiFactory->create()->patchInvoiceNumber(
                     $paymentId,
                     $payment->getOrder()->getIncrementId()

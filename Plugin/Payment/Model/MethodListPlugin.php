@@ -50,8 +50,7 @@ class MethodListPlugin
             $allowedMethods = [];
 
             foreach ($result as $method) {
-                if (
-                    $method->getCode() == Payment::CODE
+                if ($method->getCode() == Payment::CODE
                     || $method->getCode() == self::AMAZON_PAYMENT
                     || !in_array($method->getCode(), $allowedPPPMethods)
                 ) {
