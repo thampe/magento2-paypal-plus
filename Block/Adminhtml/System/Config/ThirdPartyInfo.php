@@ -7,20 +7,25 @@
  * It is also available through the world-wide-web at this URL:
  * http://opensource.org/licenses/osl-3.0.php
  *
- * Author Robert Hillebrand - hillebrand@i-ways.de - i-ways sales solutions GmbH
- * Copyright i-ways sales solutions GmbH © 2015. All Rights Reserved.
- * License http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
+ * PHP version 7.3.17
+ *
+ * @category Modules
+ * @package  Magento
+ * @author   Robert Hillebrand <hillebrand@i-ways.net>
+ * @license  http://opensource.org/licenses/osl-3.0.php Open Software License 3.0
+ * @link     https://www.i-ways.net
  */
 
 /**
  * Config form fieldset renderer
  */
-
 namespace Iways\PayPalPlus\Block\Adminhtml\System\Config;
 
 class ThirdPartyInfo extends \Magento\Config\Block\System\Config\Form\Fieldset
 {
     /**
+     * Payment method config
+     *
      * @var \Magento\Payment\Model\Config
      */
     protected $paymentConfig;
@@ -40,6 +45,7 @@ class ThirdPartyInfo extends \Magento\Config\Block\System\Config\Form\Fieldset
      * Render fieldset html
      *
      * @param \Magento\Framework\Data\Form\Element\AbstractElement $element
+     *
      * @return string
      */
     public function render(\Magento\Framework\Data\Form\Element\AbstractElement $element)
@@ -48,26 +54,24 @@ class ThirdPartyInfo extends \Magento\Config\Block\System\Config\Form\Fieldset
         $html = $this->_getHeaderHtml($element);
         $dummyField = $element->getElements()[0];
 
-        $configPath = 'payment/iways_paypalplus_payment/third_party_modul';
-        $thirdPartyMethods = explode(',', $this->_scopeConfig->getValue($configPath . 's'));
+        $thirdPartyModuls = $this->_scopeConfig->getValue('payment/iways_paypalplus_payment/third_party_moduls');
+        $thirdPartyMethods = explode(',', $thirdPartyModuls);
         foreach ($this->paymentConfig->getActiveMethods() as $paymentMethod) {
             if (in_array($paymentMethod->getCode(), $thirdPartyMethods)) {
                 $thirdPartyMethod = $paymentMethod->getCode();
-                $configPathText = 'payment/iways_paypalplus_section/third_party_modul_info/text_'
-                                . $thirdPartyMethod;
-                $methodText = $this->_scopeConfig->getValue($configPathText) ?: $paymentMethod->getTitle();
+                $textSetting = 'payment/iways_paypalplus_section/third_party_modul_info/text_' . $thirdPartyMethod;
+                $text = $this->_scopeConfig->getValue($textSetting);
                 $field = clone $dummyField;
                 $field->setData('name', str_replace('dummy', $thirdPartyMethod, $field->getName()));
                 $field->setData('label', $paymentMethod->getTitle());
-                $field->setData('value', $methodText);
+                $field->setData('value', $text);
                 $fieldConfig = $field->getData('field_config');
                 $fieldConfig['id'] = 'text_' . $thirdPartyMethod;
                 $fieldConfig['label'] = $paymentMethod->getTitle();
-                $fieldConfig['config_path'] = $configPathText;
+                $fieldConfig['config_path'] = $textSetting;
                 $field->setData('field_config', $fieldConfig);
                 $field->setData('html_id', str_replace('dummy', $thirdPartyMethod, $field->getData('html_id')));
                 $html .= $field->toHtml();
-                var_dump($thirdPartyMethod, $configPathText);
             }
         }
         $html .= $this->_getFooterHtml($element);
