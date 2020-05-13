@@ -47,7 +47,7 @@ class Event
      *
      * @var \Magento\Sales\Model\Order
      */
-    protected $_order = null;
+    protected $_order = null; // phpcs:ignore PSR2.Classes.PropertyDeclaration
 
     /**
      * @var \Magento\Sales\Model\Order\Payment\TransactionFactory

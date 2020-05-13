@@ -13,6 +13,8 @@
  */
 namespace Iways\PayPalPlus\Model;
 
+use Iways\PayPalPlus\Block\PaymentInfo;
+use Magento\Framework\DataObject;
 use Magento\Framework\Exception\LocalizedException;
 
 /**
@@ -26,26 +28,26 @@ class Payment extends \Magento\Payment\Model\Method\AbstractMethod
 
     const PPP_INSTRUCTION_TYPE = 'PAY_UPON_INVOICE';
 
-    protected $_code = self::CODE;
+    protected $_code = self::CODE; // phpcs:ignore PSR2.Classes.PropertyDeclaration
 
     /**
      * Payment Method features
      * @var bool
      */
-    protected $_isGateway = true;
-    protected $_canOrder = false;
-    protected $_canAuthorize = true;
-    protected $_canCapture = true;
-    protected $_canCapturePartial = false;
-    protected $_canCaptureOnce = false;
-    protected $_canRefund = true;
-    protected $_canRefundInvoicePartial = true;
-    protected $_canUseCheckout = true;
+    protected $_isGateway = true; // phpcs:ignore PSR2.Classes.PropertyDeclaration
+    protected $_canOrder = false; // phpcs:ignore PSR2.Classes.PropertyDeclaration
+    protected $_canAuthorize = true; // phpcs:ignore PSR2.Classes.PropertyDeclaration
+    protected $_canCapture = true; // phpcs:ignore PSR2.Classes.PropertyDeclaration
+    protected $_canCapturePartial = false; // phpcs:ignore PSR2.Classes.PropertyDeclaration
+    protected $_canCaptureOnce = false; // phpcs:ignore PSR2.Classes.PropertyDeclaration
+    protected $_canRefund = true; // phpcs:ignore PSR2.Classes.PropertyDeclaration
+    protected $_canRefundInvoicePartial = true; // phpcs:ignore PSR2.Classes.PropertyDeclaration
+    protected $_canUseCheckout = true; // phpcs:ignore PSR2.Classes.PropertyDeclaration
 
     /**
      * @var string
      */
-    protected $_infoBlockType = \Iways\PayPalPlus\Block\PaymentInfo::class;
+    protected $_infoBlockType = PaymentInfo::class; // phpcs:ignore PSR2.Classes.PropertyDeclaration
 
     /**
      * @var \Magento\Framework\App\Request\Http
@@ -269,7 +271,7 @@ class Payment extends \Magento\Payment\Model\Method\AbstractMethod
      * @param \Magento\Framework\DataObject $payment
      * @return string
      */
-    protected function _getParentTransactionId(\Magento\Framework\DataObject $payment)
+    protected function _getParentTransactionId(DataObject $payment) // phpcs:ignore PSR2.Methods.MethodDeclaration
     {
         $transaction = $this->salesOrderPaymentTransactionFactory->create()->load($payment->getLastTransId(), 'txn_id');
         if ($transaction && $transaction->getParentTxnId()) {

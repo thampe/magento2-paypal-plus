@@ -59,12 +59,12 @@ class Api
     /**
      * @var null|ApiContext
      */
-    protected $_apiContext = null;
+    protected $_apiContext = null; // phpcs:ignore PSR2.Classes.PropertyDeclaration
 
     /**
      * @var mixed|null
      */
-    protected $_mode = null;
+    protected $_mode = null; // phpcs:ignore PSR2.Classes.PropertyDeclaration
 
     /**
      * @var \Magento\Framework\App\Config\ScopeConfigInterface

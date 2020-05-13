@@ -22,24 +22,24 @@ class ValidateObserver implements ObserverInterface
      *
      * @var \Magento\Backend\Helper\Data
      */
-    protected $_backendData;
+    protected $_backendData; // phpcs:ignore PSR2.Classes.PropertyDeclaration
 
     /**
      * Core registry
      *
      * @var \Magento\Framework\Registry
      */
-    protected $_coreRegistry;
+    protected $_coreRegistry; // phpcs:ignore PSR2.Classes.PropertyDeclaration
 
     /**
      * @var \Magento\Backend\Model\Auth\Session
      */
-    protected $_authSession;
+    protected $_authSession; // phpcs:ignore PSR2.Classes.PropertyDeclaration
 
     /**
      * @var \Magento\Framework\App\ResponseInterface
      */
-    protected $_response;
+    protected $_response; // phpcs:ignore PSR2.Classes.PropertyDeclaration
 
     /**
      * @var \Iways\PayPalPlus\Model\ApiFactory

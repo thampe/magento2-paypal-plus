@@ -23,7 +23,7 @@ class PaymentInfo extends \Magento\Payment\Block\Info
     /**
      * @var string
      */
-    protected $_template = 'paypalplus/info/default.phtml';
+    protected $_template = 'paypalplus/info/default.phtml'; // phpcs:ignore PSR2.Classes.PropertyDeclaration
 
     /**
      * Render as PDF
@@ -41,7 +41,7 @@ class PaymentInfo extends \Magento\Payment\Block\Info
      * @return \Magento\Framework\DataObject
      * @throws \Magento\Framework\Exception\LocalizedException
      */
-    protected function _prepareSpecificInformation($transport = null)
+    protected function _prepareSpecificInformation($transport = null) // phpcs:ignore PSR2.Methods.MethodDeclaration
     {
         $transport = parent::_prepareSpecificInformation($transport);
         $payment = $this->getInfo();

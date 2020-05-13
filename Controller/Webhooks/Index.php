@@ -26,17 +26,17 @@ class Index extends \Magento\Framework\App\Action\Action implements CsrfAwareAct
     /**
      * @var \Psr\Log\LoggerInterface
      */
-    protected $_logger;
+    protected $_logger; // phpcs:ignore PSR2.Classes.PropertyDeclaration
 
     /**
      * @var \Iways\PayPalPlus\Model\Webhook\EventFactory
      */
-    protected $_webhookEventFactory;
+    protected $_webhookEventFactory; // phpcs:ignore PSR2.Classes.PropertyDeclaration
 
     /**
      * @var \Iways\PayPalPlus\Model\ApiFactory
      */
-    protected $_apiFactory;
+    protected $_apiFactory; // phpcs:ignore PSR2.Classes.PropertyDeclaration
 
     /**
      * @param \Magento\Framework\App\RequestInterface $request
