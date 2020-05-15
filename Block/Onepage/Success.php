@@ -7,9 +7,13 @@
  * It is also available through the world-wide-web at this URL:
  * http://opensource.org/licenses/osl-3.0.php
  *
- * Author Robert Hillebrand - hillebrand@i-ways.de - i-ways sales solutions GmbH
- * Copyright i-ways sales solutions GmbH © 2015. All Rights Reserved.
- * License http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
+ * PHP version 7.3.17
+ *
+ * @category Modules
+ * @package  Magento
+ * @author   Robert Hillebrand <hillebrand@i-ways.net>
+ * @license  http://opensource.org/licenses/osl-3.0.php Open Software License 3.0
+ * @link     https://www.i-ways.net
  */
 namespace Iways\PayPalPlus\Block\Onepage;
 
@@ -28,12 +32,14 @@ class Success extends \Magento\Framework\View\Element\Template
 
     /**
      * Checkout session
+     *
      * @var \Magento\Checkout\Model\Session
      */
     protected $checkoutSession;
 
     /**
      * Order
+     *
      * @var Order
      */
     protected $order;
@@ -57,6 +63,7 @@ class Success extends \Magento\Framework\View\Element\Template
 
     /**
      * Check if last order is PayPalPlus
+     *
      * @return bool
      */
     public function isPPP()
@@ -97,6 +104,7 @@ class Success extends \Magento\Framework\View\Element\Template
      * Wrapper for $payment->getData($key)
      *
      * @param string $key
+     *
      * @return array|mixed|null
      */
     public function getAdditionalInformation($key)

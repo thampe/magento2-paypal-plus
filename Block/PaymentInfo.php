@@ -7,9 +7,13 @@
  * It is also available through the world-wide-web at this URL:
  * http://opensource.org/licenses/osl-3.0.php
  *
- * Author Robert Hillebrand - hillebrand@i-ways.de - i-ways sales solutions GmbH
- * Copyright i-ways sales solutions GmbH © 2015. All Rights Reserved.
- * License http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
+ * PHP version 7.3.17
+ *
+ * @category Modules
+ * @package  Magento
+ * @author   Robert Hillebrand <hillebrand@i-ways.net>
+ * @license  http://opensource.org/licenses/osl-3.0.php Open Software License 3.0
+ * @link     https://www.i-ways.net
  */
 namespace Iways\PayPalPlus\Block;
 
@@ -21,12 +25,15 @@ use Iways\PayPalPlus\Model\Payment;
 class PaymentInfo extends \Magento\Payment\Block\Info
 {
     /**
+     * Default template file
+     *
      * @var string
      */
     protected $_template = 'paypalplus/info/default.phtml'; // phpcs:ignore PSR2.Classes.PropertyDeclaration
 
     /**
      * Render as PDF
+     *
      * @return string
      */
     public function toPdf()
@@ -37,8 +44,11 @@ class PaymentInfo extends \Magento\Payment\Block\Info
 
     /**
      * Prepare information specific to current payment method
+     *
      * @param null $transport
+     *
      * @return \Magento\Framework\DataObject
+     *
      * @throws \Magento\Framework\Exception\LocalizedException
      */
     protected function _prepareSpecificInformation($transport = null) // phpcs:ignore PSR2.Methods.MethodDeclaration
@@ -64,7 +74,9 @@ class PaymentInfo extends \Magento\Payment\Block\Info
 
     /**
      * Checks if PayPal PLUS payment is PUI
+     *
      * @return bool
+     *
      * @throws \Magento\Framework\Exception\LocalizedException
      */
     public function isPUI()

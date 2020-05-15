@@ -7,6 +7,8 @@
  * It is also available through the world-wide-web at this URL:
  * http://opensource.org/licenses/osl-3.0.php
  *
+ * PHP version 7.3.17
+ *
  * Author Robert Hillebrand - hillebrand@i-ways.de - i-ways sales solutions GmbH
  * Copyright i-ways sales solutions GmbH © 2015. All Rights Reserved.
  * License http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
@@ -391,7 +393,7 @@ class Api
                                 );
                         }
                     }
-                    $this->logger->critica($validationMessage); // throw new \Exception($validationMessage);
+                    $this->logger->critical($validationMessage); // throw new \Exception($validationMessage);
                 }
             }
         }

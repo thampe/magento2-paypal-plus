@@ -23,19 +23,14 @@
 <csp_whitelist xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Csp/etc/csp_whitelist.xsd">
     <policies>
-    	<policy id="base-uri">
+        <policy id="base-uri">
             <values>
                 <value id="https-www-paypalobjects-com" type="host">https://www.paypalobjects.com</value>
             </values>
         </policy>
-        <policy id="connect-src">
+        <policy id="form-action">
             <values>
                 <value id="https-www-sandbox-paypal-com" type="host">https://www.sandbox.paypal.com</value>
-            </values>
-        </policy>
-        <policy id="font-src">
-            <values>
-                <value id="https-www-paypalobjects-com" type="host">https://www.paypalobjects.com</value>
             </values>
         </policy>
     </policies>
