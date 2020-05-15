@@ -7,9 +7,13 @@
  * It is also available through the world-wide-web at this URL:
  * http://opensource.org/licenses/osl-3.0.php
  *
- * Author Robert Hillebrand - hillebrand@i-ways.de - i-ways sales solutions GmbH
- * Copyright i-ways sales solutions GmbH © 2015. All Rights Reserved.
- * License http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
+ * PHP version 7.3.17
+ *
+ * @category Modules
+ * @package  Magento
+ * @author   Robert Hillebrand <hillebrand@i-ways.net>
+ * @license  http://opensource.org/licenses/osl-3.0.php Open Software License 3.0
+ * @link     https://www.i-ways.net
  */
 
 namespace Iways\PayPalPlus\Controller\Order;
@@ -29,51 +33,71 @@ class Create extends \Magento\Framework\App\Action\Action
 {
     const MAX_SEND_MAIL_VERSION = '2.2.6';
     /**
+     * Protected $logger
+     *
      * @var \Psr\Log\LoggerInterface
      */
     protected $logger;
 
     /**
+     * Protected $checkoutSession
+     *
      * @var \Magento\Checkout\Model\Session
      */
     protected $checkoutSession;
 
     /**
+     * Protected $checkoutHelper
+     *
      * @var \Magento\Checkout\Helper\Data
      */
     protected $checkoutHelper;
 
     /**
+     * Protected $customerSession
+     *
      * @var Session
      */
     protected $customerSession;
 
     /**
+     * Protected $cartManagement
+     *
      * @var \Magento\Quote\Api\CartManagementInterface
      */
     protected $cartManagement;
 
     /**
+     * Protected $guestCartManagement
+     *
      * @var \Magento\Quote\Api\GuestCartManagementInterface
      */
     protected $guestCartManagement;
 
     /**
+     * Protected $quoteIdMaskFactory
+     *
      * @var QuoteIdMaskFactory
      */
     protected $quoteIdMaskFactory;
 
     /**
+     * Protected $orderSender
+     *
      * @var OrderSender
      */
     protected $orderSender;
 
     /**
+     * Protected $historyFactory
+     *
      * @var \Magento\Sales\Model\Order\Status\HistoryFactory
      */
     protected $historyFactory;
 
     /**
+     * Protected $productMetadata
+     *
      * @var \Magento\Framework\App\ProductMetadataInterface
      */
     protected $productMetadata;
@@ -108,6 +132,7 @@ class Create extends \Magento\Framework\App\Action\Action
 
     /**
      * Execute
+     *
      * @return void
      */
     public function execute()
@@ -137,9 +162,7 @@ class Create extends \Magento\Framework\App\Action\Action
                     // IWD_Opc Order Comment
                     if ($this->customerSession->getOrderComment()) {
                         if ($order->getData('entity_id')) {
-                            /** @param string $status */
                             $status = $order->getData('status');
-                            /** @param \Magento\Sales\Model\Order\Status\HistoryFactory $history */
                             $history = $this->historyFactory->create();
                             // set comment history data
                             $history->setData('comment', strip_tags($this->customerSession->getOrderComment()));

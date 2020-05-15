@@ -9,9 +9,11 @@
  *
  * PHP version 7.3.17
  *
- * Author Robert Hillebrand - hillebrand@i-ways.de - i-ways sales solutions GmbH
- * Copyright i-ways sales solutions GmbH © 2015. All Rights Reserved.
- * License http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
+ * @category Modules
+ * @package  Magento
+ * @author   Robert Hillebrand <hillebrand@i-ways.net>
+ * @license  http://opensource.org/licenses/osl-3.0.php Open Software License 3.0
+ * @link     https://www.i-ways.net
  */
 namespace Iways\PayPalPlus\Model;
 
@@ -34,6 +36,7 @@ class Payment extends \Magento\Payment\Model\Method\AbstractMethod
 
     /**
      * Payment Method features
+     *
      * @var bool
      */
     protected $_isGateway = true; // phpcs:ignore PSR2.Classes.PropertyDeclaration
@@ -47,52 +50,71 @@ class Payment extends \Magento\Payment\Model\Method\AbstractMethod
     protected $_canUseCheckout = true; // phpcs:ignore PSR2.Classes.PropertyDeclaration
 
     /**
+     * Protected $_infoBlockType
+     *
      * @var string
      */
     protected $_infoBlockType = PaymentInfo::class; // phpcs:ignore PSR2.Classes.PropertyDeclaration
 
     /**
+     * Protected $request
+     *
      * @var \Magento\Framework\App\Request\Http
      */
     protected $request;
 
     /**
+     * Protected $scopeConfig
+     *
      * @var \Magento\Framework\App\Config\ScopeConfigInterface
      */
     protected $scopeConfig;
 
     /**
+     * Protected $payPalPlusApiFactory
+     *
      * @var \Iways\PayPalPlus\Model\ApiFactory
      */
     protected $payPalPlusApiFactory;
 
     /**
+     * Protected $logger
+     *
      * @var \Psr\Log\LoggerInterface
      */
     protected $logger;
 
     /**
+     * Protected $customerSession
+     *
      * @var \Magento\Customer\Model\Session
      */
     protected $customerSession;
 
     /**
+     * Protected $payPalPlusHelpe
+     *
      * @var \Iways\PayPalPlus\Helper\Data
      */
     protected $payPalPlusHelper;
 
     /**
+     * Protected $salesOrderPaymentTransactionFactory
+     *
      * @var \Magento\Sales\Model\Order\Payment\TransactionFactory
      */
     protected $salesOrderPaymentTransactionFactory;
 
     /**
+     * Protected $ppLogger
+     *
      * @var \Psr\Log\LoggerInterface
      */
     protected $ppLogger;
 
     /**
-     * Payment constructor.
+     * Payment constructor
+     *
      * @param \Magento\Framework\App\Request\Http $request
      * @param \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig
      * @param ApiFactory $payPalPlusApiFactory
@@ -159,14 +181,14 @@ class Payment extends \Magento\Payment\Model\Method\AbstractMethod
      */
     public function authorize(\Magento\Payment\Model\InfoInterface $payment, $amount)
     {
-        /** @var \Magento\Sales\Model\Order\Payment $payment */
         $paymentId = $this->request->getParam('paymentId');
         $payerId = $this->request->getParam('PayerID');
         try {
             if ($this->scopeConfig->getValue(
                 'payment/iways_paypalplus_payment/transfer_reserved_order_id',
                 \Magento\Store\Model\ScopeInterface::SCOPE_STORE
-            )) {
+            )
+            ) {
                 $this->payPalPlusApiFactory->create()->patchInvoiceNumber(
                     $paymentId,
                     $payment->getOrder()->getIncrementId()
@@ -175,9 +197,7 @@ class Payment extends \Magento\Payment\Model\Method\AbstractMethod
         } catch (\Exception $e) {
             $this->ppLogger->critical($e);
         }
-        /**
-         * @var \PayPal\Api\Payment $ppPayment
-         */
+
         $ppPayment = $this->payPalPlusApiFactory->create()->executePayment(
             $paymentId,
             $payerId
@@ -252,9 +272,12 @@ class Payment extends \Magento\Payment\Model\Method\AbstractMethod
 
     /**
      * Refund specified amount for payment
+     *
      * @param \Magento\Payment\Model\InfoInterface $payment
      * @param float $amount
+     *
      * @return $this|\Magento\Payment\Model\Method\AbstractMethod
+     *
      * @throws \Magento\Framework\Exception\NoSuchEntityException
      */
     public function refund(\Magento\Payment\Model\InfoInterface $payment, $amount)
@@ -271,6 +294,7 @@ class Payment extends \Magento\Payment\Model\Method\AbstractMethod
      * Parent transaction id getter
      *
      * @param \Magento\Framework\DataObject $payment
+     *
      * @return string
      */
     protected function _getParentTransactionId(DataObject $payment) // phpcs:ignore PSR2.Methods.MethodDeclaration

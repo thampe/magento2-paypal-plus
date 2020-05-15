@@ -7,9 +7,13 @@
  * It is also available through the world-wide-web at this URL:
  * http://opensource.org/licenses/osl-3.0.php
  *
- * Author Robert Hillebrand - hillebrand@i-ways.de - i-ways sales solutions GmbH
- * Copyright i-ways sales solutions GmbH © 2015. All Rights Reserved.
- * License http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
+ * PHP version 7.3.17
+ *
+ * @category Modules
+ * @package  Magento
+ * @author   Robert Hillebrand <hillebrand@i-ways.net>
+ * @license  http://opensource.org/licenses/osl-3.0.php Open Software License 3.0
+ * @link     https://www.i-ways.net
  */
 
 namespace Iways\PayPalPlus\Model\PaymentInformationManagement;
@@ -21,32 +25,43 @@ use Magento\Framework\Exception\CouldNotSaveException;
 class PPPPaymentInformationManagement extends PaymentInformationManagement implements ClassInterface
 {
     /**
+     * Protected $billingAddressManagement
+     *
      * @var \Magento\Quote\Api\BillingAddressManagementInterface
      */
     protected $billingAddressManagement;
 
     /**
+     * Protected $paymentMethodManagement
+     *
      * @var \Magento\Quote\Api\PaymentMethodManagementInterface
      */
     protected $paymentMethodManagement;
 
     /**
+     * Protected $cartManagement
+     *
      * @var \Magento\Quote\Api\CartManagementInterface
      */
     protected $cartManagement;
 
     /**
+     * Protected $paymentDetailsFactory
+     *
      * @var PaymentDetailsFactory
      */
     protected $paymentDetailsFactory;
 
     /**
+     * Protected $cartTotalsRepository
+     *
      * @var \Magento\Quote\Api\CartTotalRepositoryInterface
      */
     protected $cartTotalsRepository;
 
     /**
-     * PPPPaymentInformationManagement constructor.
+     * PPPPaymentInformationManagement constructor
+     *
      * @param \Iways\PayPalPlus\Model\ApiFactory $payPalPlusApiFactory
      * @param \Magento\Quote\Api\CartRepositoryInterface $quoteRepository
      * @param \Magento\Customer\Model\Session $customerSession
@@ -104,7 +119,6 @@ class PPPPaymentInformationManagement extends PaymentInformationManagement imple
      */
     public function getPaymentInformation($cartId)
     {
-        /** @var \Magento\Checkout\Api\Data\PaymentDetailsInterface $paymentDetails */
         $paymentDetails = $this->paymentDetailsFactory->create();
         $paymentDetails->setPaymentMethods($this->paymentMethodManagement->getList($cartId));
         $paymentDetails->setTotals($this->cartTotalsRepository->get($cartId));

@@ -7,14 +7,19 @@
  * It is also available through the world-wide-web at this URL:
  * http://opensource.org/licenses/osl-3.0.php
  *
- * Author Robert Hillebrand - hillebrand@i-ways.de - i-ways sales solutions GmbH
- * Copyright i-ways sales solutions GmbH © 2015. All Rights Reserved.
- * License http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
+ * PHP version 7.3.17
+ *
+ * @category Modules
+ * @package  Magento
+ * @author   Robert Hillebrand <hillebrand@i-ways.net>
+ * @license  http://opensource.org/licenses/osl-3.0.php Open Software License 3.0
+ * @link     https://www.i-ways.net
  */
 namespace Iways\PayPalPlus\Api;
 
 /**
  * Interface for managing guest payment information
+ *
  * @api
  */
 interface GuestPPPPaymentInformationManagementInterface
@@ -26,7 +31,9 @@ interface GuestPPPPaymentInformationManagementInterface
      * @param string $email
      * @param \Magento\Quote\Api\Data\PaymentInterface $paymentMethod
      * @param \Magento\Quote\Api\Data\AddressInterface|null $billingAddress
+     *
      * @throws \Magento\Framework\Exception\CouldNotSaveException
+     *
      * @return int Order ID.
      */
     public function savePaymentInformation(
@@ -40,6 +47,7 @@ interface GuestPPPPaymentInformationManagementInterface
      * Get payment information
      *
      * @param string $cartId
+     *
      * @return \Magento\Checkout\Api\Data\PaymentDetailsInterface
      */
     public function getPaymentInformation($cartId);

@@ -7,9 +7,13 @@
  * It is also available through the world-wide-web at this URL:
  * http://opensource.org/licenses/osl-3.0.php
  *
- * Author Robert Hillebrand - hillebrand@i-ways.de - i-ways sales solutions GmbH
- * Copyright i-ways sales solutions GmbH © 2015. All Rights Reserved.
- * License http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
+ * PHP version 7.3.17
+ *
+ * @category Modules
+ * @package  Magento
+ * @author   Robert Hillebrand <hillebrand@i-ways.net>
+ * @license  http://opensource.org/licenses/osl-3.0.php Open Software License 3.0
+ * @link     https://www.i-ways.net
  */
 namespace Iways\PayPalPlus\Observer;
 
@@ -32,32 +36,43 @@ class ValidateObserver implements ObserverInterface
     protected $_coreRegistry; // phpcs:ignore PSR2.Classes.PropertyDeclaration
 
     /**
+     * Protected $_authSession
+     *
      * @var \Magento\Backend\Model\Auth\Session
      */
     protected $_authSession; // phpcs:ignore PSR2.Classes.PropertyDeclaration
 
     /**
+     * Protected $_response
+     *
      * @var \Magento\Framework\App\ResponseInterface
      */
     protected $_response; // phpcs:ignore PSR2.Classes.PropertyDeclaration
 
     /**
+     * Protected $payPalPlusApiFactory
+     *
      * @var \Iways\PayPalPlus\Model\ApiFactory
      */
     protected $payPalPlusApiFactory;
 
     /**
+     * Protected $storeManager
+     *
      * @var \Magento\Store\Model\StoreManagerInterface
      */
     protected $storeManager;
 
     /**
+     * Protected $messageManager
+     *
      * @var \Magento\Framework\Message\ManagerInterface
      */
     protected $messageManager;
 
     /**
-     * ValidateObserver constructor.
+     * ValidateObserver constructor
+     *
      * @param \Magento\Backend\Helper\Data $backendData
      * @param \Magento\Framework\Registry $coreRegistry
      * @param \Magento\Backend\Model\Auth\Session $authSession
@@ -86,7 +101,9 @@ class ValidateObserver implements ObserverInterface
 
     /**
      * Log out user and redirect to new admin custom url
+     *
      * @param \Magento\Framework\Event\Observer $observer
+     *
      * @throws \Magento\Framework\Exception\FileSystemException
      * @throws \Magento\Framework\Exception\LocalizedException
      */
@@ -105,7 +122,9 @@ class ValidateObserver implements ObserverInterface
 
     /**
      * Try to get default store id from observer
+     *
      * @param \Magento\Framework\Event\Observer $observer
+     *
      * @return object|null
      */
     protected function getDefaultStoreId(\Magento\Framework\Event\Observer $observer)

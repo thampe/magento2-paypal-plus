@@ -49,9 +49,12 @@ define(
              * Checkout for guest and registered customer.
              */
             if (!customer.isLoggedIn()) {
-                serviceUrl = urlBuilder.createUrl('/guest-carts/:cartId/set-ppp-payment-information', {
-                    cartId: quote.getQuoteId()
-                });
+                serviceUrl = urlBuilder.createUrl(
+                    '/guest-carts/:cartId/set-ppp-payment-information',
+                    {
+                        cartId: quote.getQuoteId()
+                    }
+                );
                 payload = {
                     cartId: quote.getQuoteId(),
                     email: quote.guestEmail,

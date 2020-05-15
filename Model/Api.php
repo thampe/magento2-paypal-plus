@@ -5,13 +5,15 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * http://opensource.org/licenses/osl-3.0.phprotected $methodList
  *
  * PHP version 7.3.17
  *
- * Author Robert Hillebrand - hillebrand@i-ways.de - i-ways sales solutions GmbH
- * Copyright i-ways sales solutions GmbH © 2015. All Rights Reserved.
- * License http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
+ * @category Modules
+ * @package  Magento
+ * @author   Robert Hillebrand <hillebrand@i-ways.net>
+ * @license  http://opensource.org/licenses/osl-3.0.php Open Software License 3.0
+ * @link     https://www.i-ways.net
  */
 
 namespace Iways\PayPalPlus\Model;
@@ -59,81 +61,113 @@ class Api
     const VALIDATION_ERROR = 'VALIDATION_ERROR';
 
     /**
+     * Protected $_apiContext
+     *
      * @var null|ApiContext
      */
     protected $_apiContext = null; // phpcs:ignore PSR2.Classes.PropertyDeclaration
 
     /**
+     * Protected $_mode
+     *
      * @var mixed|null
      */
     protected $_mode = null; // phpcs:ignore PSR2.Classes.PropertyDeclaration
 
     /**
+     * Protected $scopeConfig
+     *
      * @var \Magento\Framework\App\Config\ScopeConfigInterface
      */
     protected $scopeConfig;
 
     /**
+     * Protected $registry
+     *
      * @var \Magento\Framework\Registry
      */
     protected $registry;
 
     /**
+     * Protected $customerSession
+     *
      * @var \Magento\Customer\Model\Session
      */
     protected $customerSession;
 
     /**
+     * Protected $payPalPlusHelper
+     *
      * @var \Iways\PayPalPlus\Helper\Data
      */
     protected $payPalPlusHelper;
 
     /**
+     * Protected $logger
+     *
      * @var \Psr\Log\LoggerInterface
      */
     protected $logger;
 
     /**
+     * Protected $storeManager
+     *
      * @var \Magento\Store\Model\StoreManagerInterface
      */
     protected $storeManager;
 
     /**
+     * Protected $payPalPlusWebhookEventFactory
+     *
      * @var \Iways\PayPalPlus\Model\Webhook\EventFactory
      */
     protected $payPalPlusWebhookEventFactory;
 
     /**
+     * Protected $checkoutSession
+     *
      * @var \Magento\Checkout\Model\Session
      */
     protected $checkoutSession;
 
     /**
+     * Protected $backendSession
+     *
      * @var \Magento\Backend\Model\Session
      */
     protected $backendSession;
 
     /**
+     * Protected $directoryList
+     *
      * @var \Magento\Framework\App\Filesystem\DirectoryList
      */
     protected $directoryList;
 
     /**
+     * Protected $messageManage
+     *
      * @var \Magento\Framework\Message\ManagerInterface
      */
     protected $messageManager;
 
     /**
+     * Protected $encryptor
+     *
      * @var EncryptorInterface
      */
     protected $encryptor;
 
     /**
+     * Protected $assetRepo
+     *
      * @var \Magento\Framework\View\Asset\Repository
      */
     protected $assetRepo;
 
     /**
+     * Protected $urlBuilder
+     *
      * @var \Magento\Framework\UrlInterface
      */
     protected $urlBuilder;
@@ -190,8 +224,12 @@ class Api
     }
 
     /**
+     * Function setApiContext
+     *
      * @param null $website
+     *
      * @return $this
+     *
      * @throws \Magento\Framework\Exception\FileSystemException
      */
     public function setApiContext($website = null)
@@ -242,7 +280,9 @@ class Api
 
     /**
      * Get ApprovalLink for curretn Quote
+     *
      * @return bool|mixed|string|null
+     *
      * @throws \Magento\Framework\Exception\LocalizedException
      */
     public function getPaymentExperience()
@@ -265,6 +305,7 @@ class Api
      * Get a payment
      *
      * @param string $paymentId
+     *
      * @return \PayPal\Api\Payment
      */
     public function getPayment($paymentId)
@@ -277,6 +318,7 @@ class Api
      *
      * @param WebProfile $webProfile
      * @param \Magento\Quote\Model\Quote $quote
+     *
      * @return boolean|PayPalPayment
      */
     public function createPayment($webProfile, $quote, $taxFailure = false)
@@ -302,14 +344,14 @@ class Api
 
         $redirectUrls = new RedirectUrls();
         $redirectUrls->setReturnUrl($this->urlBuilder->getUrl('paypalplus/order/create'))
-                     ->setCancelUrl($this->urlBuilder->getUrl('paypalplus/checkout/cancel'));
+            ->setCancelUrl($this->urlBuilder->getUrl('paypalplus/checkout/cancel'));
 
         $payment = new PayPalPayment();
         $payment->setIntent("sale")
-                ->setExperienceProfileId($webProfile->getId())
-                ->setPayer($payer)
-                ->setRedirectUrls($redirectUrls)
-                ->setTransactions([$transaction]);
+            ->setExperienceProfileId($webProfile->getId())
+            ->setPayer($payer)
+            ->setRedirectUrls($redirectUrls)
+            ->setTransactions([$transaction]);
 
         try {
             $response = $payment->create($this->_apiContext);
@@ -329,8 +371,12 @@ class Api
     }
 
     /**
+     * Function patchPayment
+     *
      * @param $quote
+     *
      * @return bool
+     *
      * @throws \Exception
      */
     public function patchPayment($quote)
@@ -406,6 +452,7 @@ class Api
      *
      * @param string $paymentId
      * @param string $invoiceNumber
+     *
      * @return bool
      */
     public function patchInvoiceNumber($paymentId, $invoiceNumber)
@@ -430,6 +477,7 @@ class Api
      *
      * @param string $paymentId
      * @param string $payerId
+     *
      * @return boolean|\PayPal\Api\Payment
      */
     public function executePayment($paymentId, $payerId)
@@ -450,9 +498,12 @@ class Api
 
     /**
      * Refund Payment
+     *
      * @param $paymentId
      * @param $amount
+     *
      * @return Refund
+     *
      * @throws \Magento\Framework\Exception\NoSuchEntityException
      */
     public function refundPayment($paymentId, $amount)
@@ -492,6 +543,7 @@ class Api
      * Retrive an webhook event
      *
      * @param $webhookEventId
+     *
      * @return bool|\PayPal\Api\WebhookEvent
      */
     public function getWebhookEvent($webhookEventId)
@@ -568,6 +620,7 @@ class Api
      * Delete webhook with webhookId for PayPal APP $this->_apiContext
      *
      * @param int $webhookId
+     *
      * @return bool
      */
     public function deleteWebhook($webhookId)
@@ -590,6 +643,7 @@ class Api
      * Validate WebhookEvent
      *
      * @param $rawBody Raw request string
+     *
      * @return bool|\PayPal\Api\WebhookEvent
      */
     public function validateWebhook($rawBody)
@@ -607,6 +661,7 @@ class Api
      * Build ShippingAddress from quote
      *
      * @param \Magento\Quote\Model\Quote $quote
+     *
      * @return ShippingAddress
      */
     protected function buildShippingAddress($quote)
@@ -636,6 +691,7 @@ class Api
      * Build BillingAddress from quote
      *
      * @param \Magento\Quote\Model\Quote $quote
+     *
      * @return ShippingAddress|boolean
      */
     protected function buildBillingAddress($quote)
@@ -664,6 +720,7 @@ class Api
      * Build Payer for payment
      *
      * @param $quote
+     *
      * @return Payer
      */
     protected function buildPayer($quote)
@@ -677,6 +734,7 @@ class Api
      * Build PayerInfo for Payer
      *
      * @param $quote
+     *
      * @return PayerInfo
      */
     protected function buildPayerInfo($quote)
@@ -703,7 +761,8 @@ class Api
     /**
      * Get fullname from address
      *
-     * @param  \Magento\Quote\Model\Quote\Address $address
+     * @param \Magento\Quote\Model\Quote\Address $address
+     *
      * @return type
      */
     protected function buildFullName($address)
@@ -726,6 +785,7 @@ class Api
      *
      * @param $quote
      * @param bool $taxFailure
+     *
      * @return ItemList
      */
     protected function buildItemList($quote, $taxFailure = false)
@@ -760,6 +820,7 @@ class Api
      * Build Amount
      *
      * @param Quote $quote
+     *
      * @return Amount
      */
     protected function buildAmount($quote)
@@ -802,7 +863,8 @@ class Api
 
         $total = $quote->getBaseGrandTotal();
         if ((float)$quote->getShippingAddress()->getBaseShippingAmount() == 0
-            && (float)$quote->getShippingAddress()->getBaseShippingInclTax() >= 0) {
+            && (float)$quote->getShippingAddress()->getBaseShippingInclTax() >= 0
+        ) {
             $total = (float)$total - (float)$quote->getShippingAddress()->getBaseShippingInclTax();
         }
 
@@ -816,7 +878,9 @@ class Api
 
     /**
      * Build WebProfil
+     *
      * @return bool|\PayPal\Api\CreateProfileResponse|WebProfile
+     *
      * @throws \Magento\Framework\Exception\LocalizedException
      */
     protected function buildWebProfile()
@@ -825,11 +889,14 @@ class Api
         if ($this->scopeConfig->getValue(
             'iways_paypalplus/dev/web_profile_id',
             \Magento\Store\Model\ScopeInterface::SCOPE_STORE
-        )) {
-            $webProfile->setId($this->scopeConfig->getValue(
-                'iways_paypalplus/dev/web_profile_id',
-                \Magento\Store\Model\ScopeInterface::SCOPE_STORE
-            ));
+        )
+        ) {
+            $webProfile->setId(
+                $this->scopeConfig->getValue(
+                    'iways_paypalplus/dev/web_profile_id',
+                    \Magento\Store\Model\ScopeInterface::SCOPE_STORE
+                )
+            );
             return $webProfile;
         }
         try {
@@ -849,7 +916,9 @@ class Api
 
     /**
      * Build Web Profile Presentation
+     *
      * @return Presentation
+     *
      * @throws \Magento\Framework\Exception\LocalizedException
      */
     protected function buildWebProfilePresentation()
@@ -876,7 +945,8 @@ class Api
         if ($this->scopeConfig->getValue(
             'iways_paypalplus/api/hdrimg',
             \Magento\Store\Model\ScopeInterface::SCOPE_WEBSITE
-        )) {
+        )
+        ) {
             return $this->scopeConfig->getValue(
                 'iways_paypalplus/api/hdrimg',
                 \Magento\Store\Model\ScopeInterface::SCOPE_WEBSITE
@@ -906,8 +976,11 @@ class Api
 
     /**
      * Save WebProfileId
+     *
      * @param $id
+     *
      * @return bool
+     *
      * @throws \Magento\Framework\Exception\NoSuchEntityException
      */
     protected function saveWebProfileId($id)
@@ -917,8 +990,11 @@ class Api
 
     /**
      * Save WebhookId
+     *
      * @param $id
+     *
      * @return bool
+     *
      * @throws \Magento\Framework\Exception\NoSuchEntityException
      */
     protected function saveWebhookId($id)
@@ -937,10 +1013,13 @@ class Api
     }
 
     /**
-     * Check if PayPal credentails are valid for given configuration.
+     * Check if PayPal credentails are valid for given configuration
      * Uses WebProfile::get_list()
+     *
      * @param $website
+     *
      * @return bool
+     *
      * @throws \Magento\Framework\Exception\FileSystemException
      */
     public function testCredentials($website)

@@ -1,6 +1,4 @@
 <?php
-namespace Iways\PayPalPlus\Model\Webhook;
-
 /**
  * NOTICE OF LICENSE
  *
@@ -9,10 +7,16 @@ namespace Iways\PayPalPlus\Model\Webhook;
  * It is also available through the world-wide-web at this URL:
  * http://opensource.org/licenses/osl-3.0.php
  *
- * Author Robert Hillebrand - hillebrand@i-ways.de - i-ways sales solutions GmbH
- * Copyright i-ways sales solutions GmbH © 2015. All Rights Reserved.
- * License http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
+ * PHP version 7.3.17
+ *
+ * @category Modules
+ * @package  Magento
+ * @author   Robert Hillebrand <hillebrand@i-ways.net>
+ * @license  http://opensource.org/licenses/osl-3.0.php Open Software License 3.0
+ * @link     https://www.i-ways.net
  */
+
+namespace Iways\PayPalPlus\Model\Webhook;
 
 /**
  * Iways PayPalPlus Event Handler
@@ -50,11 +54,15 @@ class Event
     protected $_order = null; // phpcs:ignore PSR2.Classes.PropertyDeclaration
 
     /**
+     * Protected $salesOrderPaymentTransactionFactory
+     *
      * @var \Magento\Sales\Model\Order\Payment\TransactionFactory
      */
     protected $salesOrderPaymentTransactionFactory;
 
     /**
+     * Protected $salesOrderFactory
+     *
      * @var \Magento\Sales\Model\OrderFactory
      */
     protected $salesOrderFactory;
@@ -71,7 +79,9 @@ class Event
 
     /**
      * Process the given $webhookEvent
+     *
      * @param \PayPal\Api\WebhookEvent $webhookEvent
+     *
      * @throws \Exception
      */
     public function processWebhookRequest(\PayPal\Api\WebhookEvent $webhookEvent)
@@ -104,6 +114,7 @@ class Event
      * Parse event type to handler function
      *
      * @param $eventType
+     *
      * @return string
      */
     protected function eventTypeToHandler($eventType)
@@ -121,7 +132,9 @@ class Event
 
     /**
      * Mark transaction as completed
+     *
      * @param \PayPal\Api\WebhookEvent $webhookEvent
+     *
      * @throws \Exception
      */
     protected function paymentSaleCompleted(\PayPal\Api\WebhookEvent $webhookEvent)
@@ -157,13 +170,14 @@ class Event
      * Mark transaction as refunded
      *
      * @param \PayPal\Api\WebhookEvent $webhookEvent
+     *
      * @throws \Exception
      */
     protected function paymentSaleRefunded(\PayPal\Api\WebhookEvent $webhookEvent)
     {
         $paymentResource = $webhookEvent->getResource();
         $parentTransactionId = $paymentResource->parent_payment;
-        /** @var \Magento\Sales\Model\Order\Payment $payment */
+
         $payment = $this->_order->getPayment();
         $amount = $paymentResource->amount->total;
 
@@ -193,7 +207,9 @@ class Event
 
     /**
      * Mark transaction as pending
+     *
      * @param \PayPal\Api\WebhookEvent $webhookEvent
+     *
      * @throws \Exception
      */
     protected function paymentSalePending(\PayPal\Api\WebhookEvent $webhookEvent)
@@ -209,7 +225,9 @@ class Event
 
     /**
      * Mark transaction as reversed
+     *
      * @param \PayPal\Api\WebhookEvent $webhookEvent
+     *
      * @throws \Exception
      */
     protected function paymentSaleReversed(\PayPal\Api\WebhookEvent $webhookEvent)
@@ -239,6 +257,7 @@ class Event
      * Load and validate order, instantiate proper configuration
      *
      * @return \Magento\Sales\Model\Order
+     *
      * @throws \Exception
      */
     protected function getOrder(\PayPal\Api\WebhookEvent $webhookEvent)

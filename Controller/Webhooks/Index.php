@@ -7,9 +7,13 @@
  * It is also available through the world-wide-web at this URL:
  * http://opensource.org/licenses/osl-3.0.php
  *
- * Author Robert Hillebrand - hillebrand@i-ways.de - i-ways sales solutions GmbH
- * Copyright i-ways sales solutions GmbH © 2015. All Rights Reserved.
- * License http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
+ * PHP version 7.3.17
+ *
+ * @category Modules
+ * @package  Magento
+ * @author   Robert Hillebrand <hillebrand@i-ways.net>
+ * @license  http://opensource.org/licenses/osl-3.0.php Open Software License 3.0
+ * @link     https://www.i-ways.net
  */
 
 namespace Iways\PayPalPlus\Controller\Webhooks;
@@ -24,22 +28,31 @@ use Magento\Framework\Exception\LocalizedException;
 class Index extends \Magento\Framework\App\Action\Action implements CsrfAwareActionInterface
 {
     /**
+     * Protected $_logger
+     *
      * @var \Psr\Log\LoggerInterface
      */
     protected $_logger; // phpcs:ignore PSR2.Classes.PropertyDeclaration
 
     /**
+     * Protected $_webhookEventFactory
+     *
      * @var \Iways\PayPalPlus\Model\Webhook\EventFactory
      */
     protected $_webhookEventFactory; // phpcs:ignore PSR2.Classes.PropertyDeclaration
 
     /**
+     * Protected $_apiFactory
+     *
      * @var \Iways\PayPalPlus\Model\ApiFactory
      */
     protected $_apiFactory; // phpcs:ignore PSR2.Classes.PropertyDeclaration
 
     /**
+     * Function validateForCsrf
+     *
      * @param \Magento\Framework\App\RequestInterface $request
+     *
      * @return bool|null
      */
     public function validateForCsrf(\Magento\Framework\App\RequestInterface $request):
@@ -49,7 +62,10 @@ class Index extends \Magento\Framework\App\Action\Action implements CsrfAwareAct
     }
 
     /**
+     * Function createCsrfValidationException
+     *
      * @param \Magento\Framework\App\RequestInterface $request
+     *
      * @return InvalidRequestException|null
      */
     public function createCsrfValidationException(\Magento\Framework\App\RequestInterface $request):
@@ -59,6 +75,8 @@ class Index extends \Magento\Framework\App\Action\Action implements CsrfAwareAct
     }
 
     /**
+     * Class constructor
+     *
      * @param \Magento\Framework\App\Action\Context $context
      * @param \Iways\PayPalPlus\Model\Webhook\EventFactory $webhookEventFactory
      * @param \Iways\PayPalPlus\Model\ApiFactory $apiFactory
@@ -82,6 +100,7 @@ class Index extends \Magento\Framework\App\Action\Action implements CsrfAwareAct
      * Instantiate Event model and pass Webhook request to it
      *
      * @return void
+     *
      * @SuppressWarnings(PHPMD.ExitExpression)
      */
     public function execute()
@@ -92,7 +111,6 @@ class Index extends \Magento\Framework\App\Action\Action implements CsrfAwareAct
 
         try {
             $data = $this->driver->fileGetContents('php://input'); // file_get_contents('php://input');
-            /** @var \PayPal\Api\WebhookEvent $webhookEvent */
             $webhookEvent = $this->_apiFactory->create()->validateWebhook($data);
             if (!$webhookEvent) {
                 throw new LocalizedException(__('Event not found.'));

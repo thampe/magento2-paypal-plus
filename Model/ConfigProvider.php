@@ -9,9 +9,11 @@
  *
  * PHP version 7.3.17
  *
- * Author Robert Hillebrand - hillebrand@i-ways.de - i-ways sales solutions GmbH
- * Copyright i-ways sales solutions GmbH © 2015. All Rights Reserved.
- * License http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
+ * @category Modules
+ * @package  Magento
+ * @author   Robert Hillebrand <hillebrand@i-ways.net>
+ * @license  http://opensource.org/licenses/osl-3.0.php Open Software License 3.0
+ * @link     https://www.i-ways.net
  */
 
 namespace Iways\PayPalPlus\Model;
@@ -24,36 +26,50 @@ use Psr\Log\LoggerInterface;
 class ConfigProvider implements ConfigProviderInterface
 {
     /**
+     * Protected $methodCode
+     *
      * @var string[]
      */
     protected $methodCode = Payment::CODE;
 
     /**
+     * Protected $method
+     *
      * @var Checkmo
      */
     protected $method;
 
     /**
+     * Protected $escaper
+     *
      * @var Escaper
      */
     protected $escaper;
 
     /**
+     * Protected $payPalPlusHelper
+     *
      * @var \Iways\PayPalPlus\Helper\Data
      */
     protected $payPalPlusHelper;
 
     /**
+     * Protected $checkoutSession
+     *
      * @var \Magento\Checkout\Model\Session
      */
     protected $checkoutSession;
 
     /**
+     * Protected $scopeConfig
+     *
      * @var \Magento\Framework\App\Config\ScopeConfigInterface
      */
     protected $scopeConfig;
 
     /**
+     * Protected $paymentConfig
+     *
      * @var \Magento\Payment\Model\Config
      */
     protected $paymentConfig;
@@ -66,12 +82,15 @@ class ConfigProvider implements ConfigProviderInterface
     protected $urlBuilder;
 
     /**
+     * Protected $methodList
+     *
      * @var MethodList
      */
     protected $methodList;
 
     /**
-     * ConfigProvider constructor.
+     * ConfigProvider constructor
+     *
      * @param PaymentHelper $paymentHelper
      * @param Escaper $escaper
      * @param \Iways\PayPalPlus\Helper\Data $payPalPlusHelper
@@ -81,6 +100,7 @@ class ConfigProvider implements ConfigProviderInterface
      * @param MethodList $methodList
      * @param \Magento\Framework\UrlInterface $urlBuilder
      * @param LoggerInterface $logger
+     *
      * @throws \Magento\Framework\Exception\LocalizedException
      */
     public function __construct(

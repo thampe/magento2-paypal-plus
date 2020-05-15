@@ -31,47 +31,64 @@ use Magento\Framework\View\LayoutFactory;
 class Data extends \Magento\Payment\Helper\Data
 {
     /**
+     * Protected $generic
+     *
      * @var \Magento\Framework\Session\Generic
      */
     protected $generic;
 
     /**
+     * Protected $request
+     *
      * @var \Magento\Framework\App\Request\Http
      */
     protected $request;
 
     /**
+     * Protected $storeManager
+     *
      * @var \Magento\Store\Model\StoreManagerInterface
      */
     protected $storeManager;
 
     /**
+     * Protected $payPalPlusApiFactory
+     *
      * @var \Iways\PayPalPlus\Model\ApiFactory
      */
     protected $payPalPlusApiFactory;
 
     /**
+     * Protected $messageManager
+     *
      * @var \Magento\Framework\Message\ManagerInterface
      */
     protected $messageManager;
 
     /**
+     * Protected $configResource
+     *
      * @var \Magento\Config\Model\ResourceModel\Config
      */
     protected $configResource;
 
     /**
+     * Protected $cacheTypeList
+     *
      * @var TypeListInterface
      */
     protected $cacheTypeList;
 
     /**
+     * Protected $productMetaData
+     *
      * @var \Magento\Framework\App\ProductMetadata
      */
     protected $productMetaData;
 
     /**
-     * Data constructor.
+     * Data constructor
+     *
      * @param \Magento\Framework\App\Helper\Context $context
      * @param LayoutFactory $layoutFactory
      * @param \Magento\Payment\Model\Method\Factory $paymentMethodFactory
@@ -131,7 +148,8 @@ class Data extends \Magento\Payment\Helper\Data
         if ($this->scopeConfig->getValue(
             'iways_paypalplus/dev/debug',
             \Magento\Store\Model\ScopeInterface::SCOPE_STORE
-        )) {
+        )
+        ) {
             $this->messageManager->addWarning($e->getData());
         }
     }
@@ -162,6 +180,7 @@ class Data extends \Magento\Payment\Helper\Data
      * @param $url
      * @param array $params
      * @param bool|true $formKey
+     *
      * @return string
      */
     public function getUrl($url, $params = [], $formKey = true)
@@ -193,10 +212,13 @@ class Data extends \Magento\Payment\Helper\Data
 
     /**
      * Save Store Config
+     *
      * @param $key
      * @param $value
      * @param null $storeId
+     *
      * @return bool
+     *
      * @throws \Magento\Framework\Exception\NoSuchEntityException
      */
     public function saveStoreConfig($key, $value, $storeId = null)
@@ -243,7 +265,8 @@ class Data extends \Magento\Payment\Helper\Data
         if ($this->scopeConfig->getValue(
             'payment/iways_paypalplus_payment/active',
             \Magento\Store\Model\ScopeInterface::SCOPE_STORE
-        )) {
+        )
+        ) {
             return $this->payPalPlusApiFactory->create()->getPaymentExperience();
         }
         return false;
@@ -253,6 +276,7 @@ class Data extends \Magento\Payment\Helper\Data
      * Convert due date
      *
      * @param $date
+     *
      * @return string
      */
     public function convertDueDate($date)
