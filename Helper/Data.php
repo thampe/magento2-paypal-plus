@@ -20,6 +20,7 @@ namespace Iways\PayPalPlus\Helper;
 
 use Magento\Framework\App\Cache\TypeListInterface;
 use Magento\Framework\View\LayoutFactory;
+use Magento\Store\Model\ScopeInterface;
 
 /**
  * Iways\PayPalPlus\Helper\Data
@@ -270,6 +271,14 @@ class Data extends \Magento\Payment\Helper\Data
             return $this->payPalPlusApiFactory->create()->getPaymentExperience();
         }
         return false;
+    }
+
+    public function getPaymentThirdPartyModuls()
+    {
+        return $this->scopeConfig->getValue(
+            'payment/iways_paypalplus_payment/third_party_moduls',
+            ScopeInterface::SCOPE_STORE
+        );
     }
 
     /**

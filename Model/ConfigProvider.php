@@ -20,6 +20,7 @@ namespace Iways\PayPalPlus\Model;
 
 use Magento\Checkout\Model\ConfigProviderInterface;
 use Magento\Framework\Escaper;
+use Magento\Framework\View\Asset\Repository;
 use Magento\Payment\Helper\Data as PaymentHelper;
 use Psr\Log\LoggerInterface;
 
@@ -100,6 +101,7 @@ class ConfigProvider implements ConfigProviderInterface
      * @param MethodList $methodList
      * @param \Magento\Framework\UrlInterface $urlBuilder
      * @param LoggerInterface $logger
+     * @param Magento\Framework\View\Asset\Repository $assetRepo
      *
      * @throws \Magento\Framework\Exception\LocalizedException
      */
@@ -112,7 +114,8 @@ class ConfigProvider implements ConfigProviderInterface
         \Magento\Payment\Model\Config $paymentConfig,
         MethodList $methodList,
         \Magento\Framework\UrlInterface $urlBuilder,
-        LoggerInterface $logger
+        LoggerInterface $logger,
+        Repository $assetRepo
     ) {
         $this->escaper = $escaper;
         $this->method = $paymentHelper->getMethodInstance($this->methodCode);
@@ -123,6 +126,7 @@ class ConfigProvider implements ConfigProviderInterface
         $this->methodList = $methodList;
         $this->urlBuilder = $urlBuilder;
         $this->logger = $logger;
+        $this->assetRepo = $assetRepo;
     }
 
     /**
@@ -200,12 +204,21 @@ class ConfigProvider implements ConfigProviderInterface
             if (strpos($paymentMethod->getCode(), 'paypal') === false
                 && in_array($paymentMethod->getCode(), $allowedPPPMethods)
             ) {
+                if ($methodImage = $this->scopeConfig->getValue(
+                    'payment/iways_paypalplus_section/third_party_modul_info_image_' . $paymentMethod->getCode(),
+                    \Magento\Store\Model\ScopeInterface::SCOPE_STORE
+                )) {
+                    if (substr($methodImage, 0, 4) != 'http') {
+                        $methodImage = $this->assetRepo->getUrl($methodImage);
+                    }
+                }
+
                 $method = [
                     'redirectUrl' => $this->urlBuilder->getUrl('checkout', ['_secure' => true]),
                     'methodName' => $paymentMethod->getTitle(),
-                    'imageUrl' => '',
+                    'imageUrl' => $methodImage,
                     'description' => $this->scopeConfig->getValue(
-                        'payment/iways_paypalplus_section/third_party_modul_info/text_' . $paymentMethod->getCode(),
+                        'payment/iways_paypalplus_section/third_party_modul_info_text_' . $paymentMethod->getCode(),
                         \Magento\Store\Model\ScopeInterface::SCOPE_STORE
                     ),
                 ];
