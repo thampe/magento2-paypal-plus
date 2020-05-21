@@ -207,7 +207,8 @@ class ConfigProvider implements ConfigProviderInterface
                 if ($methodImage = $this->scopeConfig->getValue(
                     'payment/iways_paypalplus_section/third_party_modul_info_image_' . $paymentMethod->getCode(),
                     \Magento\Store\Model\ScopeInterface::SCOPE_STORE
-                )) {
+                )
+                ) {
                     if (substr($methodImage, 0, 4) != 'http') {
                         $methodImage = $this->assetRepo->getUrl($methodImage);
                     }

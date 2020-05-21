@@ -68,13 +68,14 @@ class Group
                         'path' => $configPath,
                         'config_path' => $configPath . '_' . $id,
                         '_elementType' => "field"
-                    ];//var_dump($fields[$id]['config_path']);
+                    ];
 
                     $id = 'image_' . $value;
                     $fields[$id] = [
                         'id' => $id,
                         'type' => 'image',
-                        'label' => __("Custom optional image for ") . '<br /><small>"' . $paymentMethod->getTitle() . '"<small>',
+                        'label' => __("Custom optional image for ")
+                                 . '<br /><small>"' . $paymentMethod->getTitle() . '"<small>',
                         'sortOrder' => $key * 10 + 5,
                         'showInDefault' => "1",
                         'showInWebsite' => "1",
@@ -82,15 +83,13 @@ class Group
                         'path' => $configPath,
                         'config_path' => $configPath . '_' . $id,
                         '_elementType' => "field"
-                    ];//var_dump($fields[$id]['config_path']);
+                    ];
                 }
             }
 
             if (!empty($fields)) {
                 $data['children'] = $fields;
             }
-        } else {
-            //if (isset($data['children'])) var_dump($data['children']);
         }
 
         return $proceed($data, $scope);
