@@ -52,7 +52,7 @@ class Group
         if ($data['id'] == self::CONFIG_GROUP_ID) {
             if ($thirdPartyModuls = $this->helper->getPaymentThirdPartyModuls()) {
                 $activePaymentMethods = $this->paymentConfig->getActiveMethods();
-                $configPath = "payment/iways_paypalplus_section/third_party_modul_info";
+                $path = "payment/iways_paypalplus_section/third_party_modul_info";
                 foreach (explode(',', $thirdPartyModuls) as $key => $value) {
                     $paymentMethod = $activePaymentMethods[$value];
 
@@ -65,25 +65,25 @@ class Group
                         'showInDefault' => "1",
                         'showInWebsite' => "1",
                         'showInStore' => "1",
-                        'path' => $configPath,
-                        'config_path' => $configPath . '_' . $id,
+                        'path' => $path,
+                        'config_path' => $path . '_' . $id,
                         '_elementType' => "field"
                     ];
 
-                    /*$id = 'image_' . $value;
+                    $id = 'image_' . $value;
                     $fields[$id] = [
                         'id' => $id,
-                        'type' => 'image',
+                        'type' => 'text',
                         'label' => __("Custom optional image for ")
                                  . '<br /><small>"' . $paymentMethod->getTitle() . '"<small>',
                         'sortOrder' => $key * 10 + 5,
                         'showInDefault' => "1",
                         'showInWebsite' => "1",
                         'showInStore' => "1",
-                        'path' => $configPath,
-                        'config_path' => $configPath . '_' . $id,
+                        'path' => $path,
+                        'config_path' => $path . '_' . $id,
                         '_elementType' => "field"
-                    ];*/
+                    ];
                 }
             }
 

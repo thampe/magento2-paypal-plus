@@ -21,6 +21,7 @@
     <event name="admin_system_config_changed_section_payment">
         <observer name="paypalplus_validate" instance="Iways\PayPalPlus\Observer\ValidateObserver" />
         <observer name="paypalplus_webprofile_reset_payment" instance="Iways\PayPalPlus\Observer\ResetObserver" />
+        <observer name="paypalplus_third_payment_modul_info" instance="Iways\PayPalPlus\Observer\TpmiObserver" />
     </event>
     <event name="admin_system_config_changed_section_design">
         <observer name="paypalplus_webprofile_reset_design" instance="Iways\PayPalPlus\Observer\ResetObserver" />
