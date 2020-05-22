@@ -70,7 +70,7 @@ class Group
                         '_elementType' => "field"
                     ];
 
-                    $id = 'image_' . $value;
+                    /*$id = 'image_' . $value;
                     $fields[$id] = [
                         'id' => $id,
                         'type' => 'image',
@@ -83,7 +83,7 @@ class Group
                         'path' => $configPath,
                         'config_path' => $configPath . '_' . $id,
                         '_elementType' => "field"
-                    ];
+                    ];*/
                 }
             }
 
