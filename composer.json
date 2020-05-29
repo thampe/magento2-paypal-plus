@@ -20,7 +20,7 @@
         "php": "~7.1.0|~7.2.0|~7.3.0",
         "paypal/rest-api-sdk-php": "^1.6",
         "magento/module-paypal": "100.3.*",
-        "iwaysgmbh/module-paypal-instalments-banner": "^1.0.0"
+        "iwaysgmbh/module-paypal-instalments-banners": "^1.0.1"
     },
     "authors": [
         {
