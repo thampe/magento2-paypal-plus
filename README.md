@@ -12,11 +12,10 @@ To install the Magento 2 PayPal PLUS extension please add our repository to your
 
     {
         "repositories": [
-                {
-                    "url": "git@github.com:i-ways/magento2-paypal-plus.git",
-                    "type": "git"
-                }
-            ]
+            {
+                "url": "https://github.com/i-ways/magento2-paypal-plus", "type": "vcs"
+            }
+        ]
     }
 
 After you added our repository you need to require our module.
@@ -28,7 +27,7 @@ There are two possibilities:
 
 
     "require": {
-           "iways/module-pay-pal-plus": "~1.0"
+        "iways/module-pay-pal-plus": "~1.0"
     }
 
 ## Enable our module in Magento

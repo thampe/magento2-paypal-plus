@@ -115,7 +115,8 @@ class ConfigProvider implements ConfigProviderInterface
         MethodList $methodList,
         \Magento\Framework\UrlInterface $urlBuilder,
         LoggerInterface $logger,
-        Repository $assetRepo
+        Repository $assetRepo,
+        \Magento\Framework\App\Request\Http $request
     ) {
         $this->escaper = $escaper;
         $this->method = $paymentHelper->getMethodInstance($this->methodCode);
@@ -127,6 +128,7 @@ class ConfigProvider implements ConfigProviderInterface
         $this->urlBuilder = $urlBuilder;
         $this->logger = $logger;
         $this->assetRepo = $assetRepo;
+        $this->request = $request;
     }
 
     /**
@@ -134,6 +136,10 @@ class ConfigProvider implements ConfigProviderInterface
      */
     public function getConfig()
     {
+        if ($this->request->getFullActionName() == 'checkout_cart_index') {
+            return [];
+        }
+
         $showPuiOnSandbox = $this->scopeConfig->getValue(
             'iways_paypalplus/dev/pui_sandbox',
             \Magento\Store\Model\ScopeInterface::SCOPE_STORE
