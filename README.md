@@ -13,7 +13,8 @@ To install the Magento 2 PayPal PLUS extension please add our repository to your
     {
         "repositories": [
             {
-                "url": "https://github.com/i-ways/magento2-paypal-plus", "type": "vcs"
+                "url": "https://github.com/i-ways/magento2-paypal-plus",
+                "type": "vcs"
             }
         ]
     }
@@ -25,21 +26,23 @@ There are two possibilities:
 1. Run the command _composer require iways/module-pay-pal-plus_
 2. Add it manually to your _composer.json_
 
-
     "require": {
-        "iways/module-pay-pal-plus": "~1.0"
+        "iways/module-pay-pal-plus": "~1.0.0"
     }
 
 ## Enable our module in Magento
 
 To enable our module via Magento 2 CLI go to your Magento root and run:
 
-    bin/magento module:enable --clear-static-content Iways_PayPalPlus
+    bin/magento module:enable --clear-static-content Iways_PaypalInstalmentsBanners Iways_PayPalPlus
 
-
-To initialize the Database updates you must run following command afterwards:
+In order to initialize database updates please run following command afterwards:
 
     bin/magento setup:upgrade
+
+Depending on your Magento 2 installation setup, you may want to run following additional command:
+
+	bin/magento setup:di:compile
 
 The Magento 2 PayPal PLUS module should now be installed and ready to use.
 
