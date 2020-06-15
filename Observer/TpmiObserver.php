@@ -24,6 +24,20 @@ use Magento\Framework\Event\ObserverInterface;
 
 class TpmiObserver implements ObserverInterface
 {
+    /**
+     * Protected $request
+     *
+     * @var \Magento\Framework\App\RequestInterface
+     */
+    protected $request;
+
+    /**
+     * Protected $writer
+     *
+     * @var \Magento\Framework\App\Config\Storage\WriterInterface
+     */
+    protected $writer;
+
     public function __construct(
         RequestInterface $request,
         WriterInterface $writer

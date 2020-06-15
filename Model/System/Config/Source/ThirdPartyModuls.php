@@ -27,6 +27,20 @@ use Magento\Framework\App\Config\ScopeConfigInterface;
 class ThirdPartyModuls implements \Magento\Framework\Option\ArrayInterface
 {
     /**
+     * Protected $_paymentConfig
+     *
+     * @var \Magento\Payment\Model\Config
+     */
+    protected $_paymentConfig; // phpcs:ignore PSR2.Classes.PropertyDeclaration
+
+    /**
+     * Protected $_scopeConfig
+     *
+     * @var \Magento\Framework\App\Config\ScopeConfigInterface
+     */
+    protected $_scopeConfig; // phpcs:ignore PSR2.Classes.PropertyDeclaration
+
+    /**
      * Construct
      *
      * @param \Magento\Payment\Model\Config $paymentConfig

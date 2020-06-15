@@ -1034,7 +1034,7 @@ class Api
                 __('Provided credentials not valid.')
             );
             return false;
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $this->logger->critical($e);
             return false;
         }

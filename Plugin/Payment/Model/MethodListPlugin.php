@@ -28,6 +28,13 @@ class MethodListPlugin
     const CHECK_PPP_FUNCTION_NAME = 'getCheckPPP';
 
     /**
+     * Protected $scopeConfig
+     *
+     * @var \Magento\Framework\App\Config\ScopeConfigInterface
+     */
+    protected $scopeConfig;
+
+    /**
      * MethodListPlugin constructor
      *
      * @param ScopeConfigInterface $scopeConfig

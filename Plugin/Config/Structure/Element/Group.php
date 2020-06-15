@@ -27,6 +27,20 @@ class Group
 {
     const CONFIG_GROUP_ID = 'third_party_modul_info';
 
+    /**
+     * Protected $helper
+     *
+     * @var \Iways\PayPalPlus\Helper\Data
+     */
+    protected $helper;
+
+    /**
+     * Protected $paymentConfig
+     *
+     * @var \Magento\Payment\Model\Config
+     */
+    protected $paymentConfig;
+
     public function __construct(
         Data $helper,
         PaymentConfig $paymentConfig

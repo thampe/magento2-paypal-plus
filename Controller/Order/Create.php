@@ -82,6 +82,13 @@ class Create extends \Magento\Framework\App\Action\Action
     protected $quoteIdMaskFactory;
 
     /**
+     * Protected $orderFactory
+     *
+     * @var OrderFactory
+     */
+    protected $orderFactory;
+
+    /**
      * Protected $orderSender
      *
      * @var OrderSender

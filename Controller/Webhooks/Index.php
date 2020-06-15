@@ -49,6 +49,13 @@ class Index extends \Magento\Framework\App\Action\Action implements CsrfAwareAct
     protected $_apiFactory; // phpcs:ignore PSR2.Classes.PropertyDeclaration
 
     /**
+     * Protected $_driver
+     *
+     * @var \Magento\Framework\Filesystem\DriverInterface
+     */
+    protected $_driver; // phpcs:ignore PSR2.Classes.PropertyDeclaration
+
+    /**
      * Function validateForCsrf
      *
      * @param \Magento\Framework\App\RequestInterface $request
@@ -81,6 +88,7 @@ class Index extends \Magento\Framework\App\Action\Action implements CsrfAwareAct
      * @param \Iways\PayPalPlus\Model\Webhook\EventFactory $webhookEventFactory
      * @param \Iways\PayPalPlus\Model\ApiFactory $apiFactory
      * @param \Psr\Log\LoggerInterface $logger
+     * @param \Magento\Framework\Filesystem\DriverInterface $driver
      */
     public function __construct(
         \Magento\Framework\App\Action\Context $context,
@@ -110,7 +118,7 @@ class Index extends \Magento\Framework\App\Action\Action implements CsrfAwareAct
         }
 
         try {
-            $data = $this->driver->fileGetContents('php://input'); // file_get_contents('php://input');
+            $data = $this->_driver->fileGetContents('php://input'); // file_get_contents('php://input');
             $webhookEvent = $this->_apiFactory->create()->validateWebhook($data);
             if (!$webhookEvent) {
                 throw new LocalizedException(__('Event not found.'));

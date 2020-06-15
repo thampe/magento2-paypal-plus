@@ -67,6 +67,13 @@ class Event
      */
     protected $salesOrderFactory;
 
+    /**
+     * Protected $logger
+     *
+     * @var \Psr\Log\LoggerInterface
+     */
+    protected $logger;
+
     public function __construct(
         \Magento\Sales\Model\Order\Payment\TransactionFactory $salesOrderPaymentTransactionFactory,
         \Magento\Sales\Model\OrderFactory $salesOrderFactory,

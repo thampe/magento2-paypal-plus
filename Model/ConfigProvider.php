@@ -90,6 +90,27 @@ class ConfigProvider implements ConfigProviderInterface
     protected $methodList;
 
     /**
+     * Protected $logger
+     *
+     * @var \Psr\Log\LoggerInterface
+     */
+    protected $logger;
+
+    /**
+     * Protected $assetRepo
+     *
+     * @var \Magento\Framework\View\Asset\Repository
+     */
+    protected $assetRepo;
+
+    /**
+     * Protected $request
+     *
+     * @var \Magento\Framework\App\Request\Http
+     */
+    protected $request;
+
+    /**
      * ConfigProvider constructor
      *
      * @param PaymentHelper $paymentHelper
