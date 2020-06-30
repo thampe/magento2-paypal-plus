@@ -49,10 +49,12 @@ class TpmiObserver implements ObserverInterface
     public function execute(Observer $observer)
     {
         $groups = $this->request->getParam('groups');
-        $tpmiFields = $groups['iways_paypalplus_section']['groups']['third_party_modul_info']['fields'];
 
-        foreach ($tpmiFields as $key => $value) {
-            $this->writer->save('payment/iways_paypalplus_section/third_party_modul_info_' . $key, $value['value']);
+        if (isset($groups['iways_paypalplus_section']['groups']['third_party_modul_info'])) {
+            $tpmiFields = $groups['iways_paypalplus_section']['groups']['third_party_modul_info']['fields'];
+            foreach ($tpmiFields as $key => $value) {
+                $this->writer->save('payment/iways_paypalplus_section/third_party_modul_info_' . $key, $value['value']);
+            }
         }
 
         return $this;
