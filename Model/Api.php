@@ -420,7 +420,7 @@ class Api
             try {
                 $response = $payment->update($patchRequest, $this->_apiContext);
                 return $response;
-            } catch (\PayPal\Exception\PayPalConnectionException $ex) {
+            } catch (PayPalConnectionException $ex) {
                 $message = json_decode($ex->getData());
                 if (isset($message->name)
                     && isset($message->details)
