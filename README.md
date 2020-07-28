@@ -34,7 +34,7 @@ There are two possibilities:
 
 To enable our module via Magento 2 CLI go to your Magento root and run:
 
-    bin/magento module:enable --clear-static-content Iways_PaypalInstalmentsBanners Iways_PayPalPlus
+    bin/magento module:enable --clear-static-content Iways_PayPalPlus
 
 In order to initialize database updates please run following command afterwards:
 
