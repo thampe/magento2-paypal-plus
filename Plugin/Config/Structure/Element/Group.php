@@ -68,36 +68,38 @@ class Group
                 $activePaymentMethods = $this->paymentConfig->getActiveMethods();
                 $path = "payment/iways_paypalplus_section/third_party_modul_info";
                 foreach (explode(',', $thirdPartyModuls) as $key => $value) {
-                    $paymentMethod = $activePaymentMethods[$value];
+                    if (isset($activePaymentMethods[$value])) {
+                        $paymentMethod = $activePaymentMethods[$value];
 
-                    $id = 'text_' . $value;
-                    $fields[$id] = [
-                        'id' => $id,
-                        'type' => 'text',
-                        'label' => $paymentMethod->getTitle(),
-                        'sortOrder' => $key * 10,
-                        'showInDefault' => "1",
-                        'showInWebsite' => "1",
-                        'showInStore' => "1",
-                        'path' => $path,
-                        'config_path' => $path . '_' . $id,
-                        '_elementType' => "field"
-                    ];
+                        $id = 'text_' . $value;
+                        $fields[$id] = [
+                            'id' => $id,
+                            'type' => 'text',
+                            'label' => $paymentMethod->getTitle(),
+                            'sortOrder' => $key * 10,
+                            'showInDefault' => "1",
+                            'showInWebsite' => "1",
+                            'showInStore' => "1",
+                            'path' => $path,
+                            'config_path' => $path . '_' . $id,
+                            '_elementType' => "field"
+                        ];
 
-                    $id = 'image_' . $value;
-                    $fields[$id] = [
-                        'id' => $id,
-                        'type' => 'text',
-                        'label' => __("Custom optional image for ")
-                                 . '<br /><small>"' . $paymentMethod->getTitle() . '"<small>',
-                        'sortOrder' => $key * 10 + 5,
-                        'showInDefault' => "1",
-                        'showInWebsite' => "1",
-                        'showInStore' => "1",
-                        'path' => $path,
-                        'config_path' => $path . '_' . $id,
-                        '_elementType' => "field"
-                    ];
+                        $id = 'image_' . $value;
+                        $fields[$id] = [
+                            'id' => $id,
+                            'type' => 'text',
+                            'label' => __("Custom optional image for ")
+                                     . '<br /><small>"' . $paymentMethod->getTitle() . '"<small>',
+                            'sortOrder' => $key * 10 + 5,
+                            'showInDefault' => "1",
+                            'showInWebsite' => "1",
+                            'showInStore' => "1",
+                            'path' => $path,
+                            'config_path' => $path . '_' . $id,
+                            '_elementType' => "field"
+                        ];
+                    }
                 }
             }
 
