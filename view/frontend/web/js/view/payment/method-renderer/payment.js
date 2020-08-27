@@ -188,11 +188,7 @@ define(
                         "additional_data": null
                     };
                 },
-                placePPPOrder: function (data, event) {alert("TEST");
-                	var checkedRequiredCA = $('.checkout-agreements.fieldset > .checkout-agreement.required > input.required-entry:checked');
-                	if (checkedRequiredCA.length) {
-                		$('.checkout-agreements.fieldset > .checkout-agreement.required > input.required-entry').prop('checked', true);
-                	}
+                placePPPOrder: function (data, event) {
                     if (event) {
                         event.preventDefault();
                     }
