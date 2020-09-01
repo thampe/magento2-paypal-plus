@@ -829,7 +829,7 @@ class Api
         $baseShippingAmount = $quote->getShippingAddress()->getBaseShippingAmount();
         $shippingCost = ($quote->getShippingAddress()->getFreeShipping()
                         ? 0
-                        : $baseShippingAmount ?: $quote->getShippingAddress()->getShippingAmount());
+                        : ($baseShippingAmount ?: $quote->getShippingAddress()->getShippingAmount()));
 
         $details->setShipping($shippingCost)
             ->setTax(
