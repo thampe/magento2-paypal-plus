@@ -128,6 +128,15 @@ define(
                                 thirdPartyPaymentMethods: self.getThirdPartyPaymentMethods(),
                                 onLoad: function () {
                                     self.lastCall = 'enableContinue';
+                                    var billingAgreements = $('.checkout-agreement.field.choice.required input.required-entry[type="checkbox"]');
+                    				billingAgreements.on('click', function (e) {
+                    					var clickedBillingAgreements = $(this);
+                    					billingAgreements.each(function () {
+                    						if ($(this).attr('name') == clickedBillingAgreements.attr('name')) {
+                    							$(this).prop('checked', clickedBillingAgreements.prop('checked'));
+                    						}
+                    					});
+                    				});
                                 },
                                 onThirdPartyPaymentMethodSelected: function (data) {
                                     self.lastCall = 'onThirdPartyPaymentMethodSelected';
