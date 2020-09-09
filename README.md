@@ -23,7 +23,7 @@ After you added our repository you need to require our module.
 
 There are two possibilities:
 
-1. Run the command _composer require iways/module-pay-pal-plus_
+1. Run the command _composer require iwaysgmbh/module-pay-pal-plus_
 2. Add it manually to your _composer.json_
 
     "require": {
