@@ -314,7 +314,7 @@ class Api
         return PayPalPayment::get($paymentId, $this->_apiContext);
     }
 
- 	/**
+    /**
      * Get a sale
      *
      * @param string $paymentId
